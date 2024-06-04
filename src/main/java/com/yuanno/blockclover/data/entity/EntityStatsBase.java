@@ -1,7 +1,5 @@
 package com.yuanno.blockclover.data.entity;
 
-import com.yuanno.blockclover.data.util.MiscData;
-
 public class EntityStatsBase implements IEntityStats {
     private MiscData miscData;
 

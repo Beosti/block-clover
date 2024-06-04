@@ -2,6 +2,7 @@ package com.yuanno.blockclover;
 
 import com.yuanno.blockclover.init.ModCapabilities;
 import com.yuanno.blockclover.init.ModKeyBinds;
+import com.yuanno.blockclover.init.ModNetwork;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,6 +45,7 @@ public class Main
     {
         ModCapabilities.init();
         ModKeyBinds.init();
+        ModNetwork.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

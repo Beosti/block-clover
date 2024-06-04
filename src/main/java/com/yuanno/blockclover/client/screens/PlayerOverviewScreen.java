@@ -2,6 +2,7 @@ package com.yuanno.blockclover.client.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
+import com.yuanno.blockclover.data.entity.IEntityStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,9 +19,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class PlayerOverviewScreen extends Screen {
 
     private final PlayerEntity player;
+    private final IEntityStats entityStats;
     protected PlayerOverviewScreen() {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
+        this.entityStats = EntityStatsCapability.get(player);
     }
 
     /**
@@ -48,7 +51,7 @@ public class PlayerOverviewScreen extends Screen {
 
         this.renderBackground(matrixStack);
         // join the world -> update data server side -> no update client side -> retrieve info data side -> crash
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + EntityStatsCapability.get(player).getMiscData().getRace(), posX, posY, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + entityStats.getMiscData().getRace(), posX, posY, -1);
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
