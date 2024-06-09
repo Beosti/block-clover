@@ -33,7 +33,6 @@ public class CombatModeOverlay {
             event.setCanceled(true);
             MatrixStack matrixStack = event.getMatrixStack();
             matrixStack.pushPose();
-            //matrixStack.scale(0, 12, 15);
             for (int i = 0; i < 9; i++)
             {
                 Beapi.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 0, 0, 0);
