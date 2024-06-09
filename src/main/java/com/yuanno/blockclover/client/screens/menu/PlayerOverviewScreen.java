@@ -1,4 +1,4 @@
-package com.yuanno.blockclover.client.screens;
+package com.yuanno.blockclover.client.screens.menu;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;

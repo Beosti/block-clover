@@ -1,10 +1,12 @@
 package com.yuanno.blockclover;
 
+import com.yuanno.blockclover.client.screens.overlay.CombatModeOverlay;
 import com.yuanno.blockclover.init.ModCapabilities;
 import com.yuanno.blockclover.init.ModKeyBinds;
 import com.yuanno.blockclover.init.ModNetwork;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,7 +51,7 @@ public class Main
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-
+        MinecraftForge.EVENT_BUS.register(new CombatModeOverlay());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

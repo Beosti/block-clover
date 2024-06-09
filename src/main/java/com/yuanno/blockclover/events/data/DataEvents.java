@@ -1,6 +1,7 @@
-package com.yuanno.blockclover.events;
+package com.yuanno.blockclover.events.data;
 
 import com.yuanno.blockclover.Main;
+import com.yuanno.blockclover.data.entity.CombatData;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.entity.MiscData;
@@ -32,6 +33,10 @@ public class DataEvents {
         {
             entityStats.setMiscData(new MiscData()); // called server side -> server side data is updated
             handleMiscData(entityStats.getMiscData());
+        }
+        if (entityStats.getCombatData() == null)
+        {
+            entityStats.setCombatData(new CombatData());
         }
         PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
     }

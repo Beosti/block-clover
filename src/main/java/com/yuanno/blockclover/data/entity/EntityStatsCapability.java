@@ -21,10 +21,11 @@ public class EntityStatsCapability {
             @Override
             public INBT writeNBT(Capability<IEntityStats> capability, IEntityStats instance, Direction side) {
                 CompoundNBT props = new CompoundNBT();
-                if (instance.getMiscData() != null) {
+                if (instance.getMiscData() != null)
                     props.put("misc", instance.getMiscData().save()); // save misc data if not empty
-                    System.out.println("Race saved is: " + instance.getMiscData().getRace());
-                }
+                if (instance.getCombatData() != null)
+                    props.put("combat", instance.getCombatData().save());
+
                 return props;
             }
 
@@ -37,8 +38,14 @@ public class EntityStatsCapability {
                     CompoundNBT compoundNBT = props.getCompound("misc"); // retrieve the misc data
                     MiscData miscData = new MiscData(); // we make a new blank slate misc data
                     miscData.load(compoundNBT); // puts the the retrieved misc data INSIDE the blank slate
-                    System.out.println("Race written is: " + miscData.getRace());
                     instance.setMiscData(miscData); // puts the filled slate back into the player
+                }
+                if (!props.getCompound("combat").isEmpty())
+                {
+                    CompoundNBT compoundNBT = props.getCompound("combat");
+                    CombatData combatData = new CombatData();
+                    combatData.load(compoundNBT);
+                    instance.setCombatData(combatData);
                 }
             }
         }, EntityStatsBase::new);

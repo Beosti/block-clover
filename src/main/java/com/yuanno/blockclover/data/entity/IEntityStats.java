@@ -5,4 +5,8 @@ public interface IEntityStats {
 
 
     MiscData getMiscData();
+
+    void setCombatData(CombatData combatData);
+
+    CombatData getCombatData();
 }
