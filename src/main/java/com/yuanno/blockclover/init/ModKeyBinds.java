@@ -2,6 +2,7 @@ package com.yuanno.blockclover.init;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.client.screens.menu.PlayerOverviewScreen;
+import com.yuanno.blockclover.client.screens.menu.PlayerSpellScreen;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.networking.PacketHandler;
@@ -16,6 +17,9 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
+
 /**
  * Class that handles all the keys pressed;
  * Key pressed (-> event) -> something happens
@@ -24,12 +28,14 @@ import org.lwjgl.glfw.GLFW;
  */
 @Mod.EventBusSubscriber(modid = Main.MODID, value = Dist.CLIENT)
 public class ModKeyBinds {
-    public static KeyBinding infocard, combatMode;
+    public static KeyBinding infocard, spellscreen, combatMode;
 
     public static void init()
     {
-        infocard = new KeyBinding("keys.blockclover.info_card", GLFW.GLFW_KEY_P, "category.blockclover.gui");
+        infocard = new KeyBinding("keys.blockclover.info_card", GLFW_KEY_P, "category.blockclover.gui");
         ClientRegistry.registerKeyBinding(infocard);
+        spellscreen = new KeyBinding("keys.blockclover.spell_screen", GLFW_KEY_Y, "category.blockclover.gui");
+        ClientRegistry.registerKeyBinding(spellscreen);
         combatMode = new KeyBinding("keys.blockclover.combat_mode", GLFW.GLFW_KEY_R, "category.blockclover.combat_mode");
         ClientRegistry.registerKeyBinding(combatMode);
     }
@@ -53,6 +59,12 @@ public class ModKeyBinds {
                 return;
 
             PlayerOverviewScreen.open();
+        }
+        if (spellscreen.isDown())
+        {
+            if (Minecraft.getInstance().screen != null)
+                return;
+            PlayerSpellScreen.open();
         }
         if (combatMode.isDown())
         {

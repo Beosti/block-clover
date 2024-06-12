@@ -5,9 +5,13 @@ import com.yuanno.blockclover.data.entity.CombatData;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.entity.MiscData;
+import com.yuanno.blockclover.data.spell.ISpellData;
+import com.yuanno.blockclover.data.spell.SpellDataCapability;
+import com.yuanno.blockclover.data.spell.SpellDatabase;
 import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
+import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,15 +33,16 @@ public class DataEvents {
         if (player.level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        ISpellData spellData = SpellDataCapability.get(player);
         if (entityStats.getMiscData() == null) // when no misc data; sets blank slate
         {
             entityStats.setMiscData(new MiscData()); // called server side -> server side data is updated
             handleMiscData(entityStats.getMiscData());
         }
         if (entityStats.getCombatData() == null)
-        {
             entityStats.setCombatData(new CombatData());
-        }
+
+        PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
     }
 

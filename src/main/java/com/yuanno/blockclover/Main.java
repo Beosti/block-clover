@@ -4,11 +4,13 @@ import com.yuanno.blockclover.client.screens.overlay.CombatModeOverlay;
 import com.yuanno.blockclover.init.ModCapabilities;
 import com.yuanno.blockclover.init.ModKeyBinds;
 import com.yuanno.blockclover.init.ModNetwork;
+import com.yuanno.blockclover.init.ModSpells;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -31,7 +33,10 @@ public class Main
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "blockclover";
     public Main() {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModSpells.SPELLS.register(modEventBus);
+        ModSpells.register(modEventBus);
 
 
 

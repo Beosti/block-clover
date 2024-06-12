@@ -1,6 +1,7 @@
 package com.yuanno.blockclover.data.spell;
 
 import com.yuanno.blockclover.api.spells.Spell;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -13,7 +14,6 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class SpellDataCapability {
 
@@ -36,6 +36,7 @@ public class SpellDataCapability {
                             CompoundNBT nbtSpell = spell.save();
                             unlockedSpells.add(nbtSpell);
                         }
+                        System.out.println(unlockedSpells);
                         props.put("unlocked_spells", unlockedSpells);
 
                         ListNBT equippedSpells = new ListNBT();
@@ -82,6 +83,11 @@ public class SpellDataCapability {
                                 instance.addEquippedSpell(spell);
                         }
                     }
-                }, SpellDatabase::new);
+                    }, SpellDatabase::new);
+    }
+
+    public static ISpellData get(final LivingEntity entity)
+    {
+        return entity.getCapability(INSTANCE, null).orElse(new SpellDatabase());
     }
 }

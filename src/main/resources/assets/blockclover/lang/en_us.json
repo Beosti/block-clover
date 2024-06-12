@@ -1,6 +1,7 @@
 {
   "category.blockclover.gui": "Block Clover Gui",
   "keys.blockclover.info_card": "Info Card",
+  "keys.blockclover.spell_screen": "Spell screen",
   "keys.blockclover.combat_mode": "Combat mode",
   "category.blockclover.combat_mode": "Block clover combat"
 }
