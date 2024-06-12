@@ -3,8 +3,11 @@ package com.yuanno.blockclover.init;
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.EntityStatsProvider;
+import com.yuanno.blockclover.data.spell.SpellDataCapability;
+import com.yuanno.blockclover.data.spell.SpellDataProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +19,7 @@ public class ModCapabilities {
     public static void init()
     {
         EntityStatsCapability.register();
+        SpellDataCapability.register();
     }
 
     @SubscribeEvent
@@ -27,6 +31,10 @@ public class ModCapabilities {
         if (event.getObject() instanceof LivingEntity)
         {
             event.addCapability(new ResourceLocation(Main.MODID, "entity"), new EntityStatsProvider());
+        }
+        if (event.getObject() instanceof PlayerEntity)
+        {
+            event.addCapability(new ResourceLocation(Main.MODID, "spell_stuff"), new SpellDataProvider());
         }
     }
 }
