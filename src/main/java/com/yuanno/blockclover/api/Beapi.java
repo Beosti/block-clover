@@ -8,11 +8,7 @@ import com.yuanno.blockclover.Main;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -40,7 +36,6 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -49,33 +44,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class Beapi {
 
     private static HashMap<String, String> langMap = new HashMap<String, String>();
-
-
-    public static void drawIcon(ResourceLocation rs, int x, int y, int z, int width, int height, int texWidth, int texHeight, int u, int v, int regionWidth, int regionHeight, float red, float green, float blue) {
-        RenderSystem.enableAlphaTest();
-        RenderSystem.enableBlend();
-        Minecraft mc = Minecraft.getInstance();
-        mc.getTextureManager().bind(rs);
-        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuilder();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR_TEX);
-
-        float minU = (float) u / texWidth;
-        float maxU = (float) (u + regionWidth) / texWidth;
-        float minV = (float) v / texHeight;
-        float maxV = (float) (v + regionHeight) / texHeight;
-
-        bufferbuilder.vertex(x, y + height, z).color(red, green, blue, 1f).uv(minU, maxV).endVertex();
-        bufferbuilder.vertex(x + width, y + height, z).color(red, green, blue, 1f).uv(maxU, maxV).endVertex();
-        bufferbuilder.vertex(x + width, y, z).color(red, green, blue, 1f).uv(maxU, minV).endVertex();
-        bufferbuilder.vertex(x, y, z).color(red, green, blue, 1f).uv(minU, minV).endVertex();
-        Tessellator.getInstance().end();
-    }
-
 
 
     public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, BlockState toPlace, int flag) {
