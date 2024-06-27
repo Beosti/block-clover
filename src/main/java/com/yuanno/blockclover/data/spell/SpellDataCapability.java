@@ -36,15 +36,21 @@ public class SpellDataCapability {
                             CompoundNBT nbtSpell = spell.save();
                             unlockedSpells.add(nbtSpell);
                         }
-                        System.out.println(unlockedSpells);
                         props.put("unlocked_spells", unlockedSpells);
 
                         ListNBT equippedSpells = new ListNBT();
                         for (int i = 0; i < instance.getEquippedSpells().size(); i++)
                         {
                             Spell spell = instance.getEquippedSpells().get(i);
-                            CompoundNBT nbtSpell = spell.save();
-                            equippedSpells.add(nbtSpell);
+                            if (spell != null)
+                            {
+                                CompoundNBT nbtSpell = spell.save();
+                                equippedSpells.add(nbtSpell);
+                            }
+                            else {
+                                CompoundNBT spellNBT = new CompoundNBT();
+                                equippedSpells.add(spellNBT);
+                            }
                         }
                         props.put("equipped_spells", equippedSpells);
                         return props;
@@ -69,18 +75,21 @@ public class SpellDataCapability {
                                 instance.addUnlockedSpell(spell);
                         }
 
+                        instance.clearEquippedSpells();
                         ListNBT equippedSpells = compoundNBT.getList("equipped_spells", Constants.NBT.TAG_COMPOUND);
                         for (int i = 0; i < equippedSpells.size(); i++)
                         {
                             CompoundNBT nbtSpell = equippedSpells.getCompound(i);
 
                             Spell spell = GameRegistry.findRegistry(Spell.class).getValue(new ResourceLocation(nbtSpell.getString("id")));
-                            if (spell == null)
-                                continue;
-                            spell.load(nbtSpell);
-                            Spell spellCheck = instance.getEquippedSpell(spell);
-                            if (spellCheck == null)
+                            if (spell == null) {
+                                instance.addEquippedSpell(null);
+                            }
+                            else
+                            {
+                                spell.load(nbtSpell);
                                 instance.addEquippedSpell(spell);
+                            }
                         }
                     }
                     }, SpellDatabase::new);

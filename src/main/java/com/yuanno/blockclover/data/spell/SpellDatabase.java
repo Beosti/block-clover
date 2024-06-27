@@ -2,17 +2,19 @@ package com.yuanno.blockclover.data.spell;
 
 import com.yuanno.blockclover.api.spells.Spell;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SpellDatabase implements ISpellData {
 
     private ArrayList<Spell> unlockedSpells = new ArrayList<Spell>();
-    private ArrayList<Spell> equippedSpells = new ArrayList<Spell>();
+    private ArrayList<Spell> equippedSpells = new ArrayList<Spell>(Collections.nCopies(9, null));
     
     private Spell previousSpellUsed;
 
     @Override
-    public void addUnlockedSpell(Spell spell)
+    public void addUnlockedSpell(@Nullable Spell spell)
     {
         this.unlockedSpells.add(spell);
     }

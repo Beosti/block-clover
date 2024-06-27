@@ -107,7 +107,7 @@
  - 36.1.34 Fix PlayerGameModeEventTest and ForgeWorldTypeTest so they don't crash the dedicated server when running forge_test_server in forgedev (#7869)
  - 36.1.33 Add userdev to run config.
  - 36.1.32 Add truncation to FMLStatusPing to work around protocol limits (#7818)
- - 36.1.31 Remove ModelResourceLocation patch for SAS entry (#7813)
+ - 36.1.31 Remove ModelResourceLocation patch for SAS spellEntry (#7813)
  - 36.1.30 Fix jar file path detection if the path contains a "!" (#7790)
  - 36.1.29 Add method to get the number of elements in a model builder (#7792)
  - 36.1.28 Fix vanilla packet splitter remote detection and add advancement packet splitting (#7802)
@@ -534,7 +534,7 @@
             This is a temporary hack until cpw re-writes the mod event dispatcher.
  - 32.0.95  Properly shutdown FMLModContainer's event bus when an error in a lifecycle event is detected.
  - 32.0.94  Enable EventBus type check during ForgeDev, and add IModBusEvent marker to ModelRegistryEvent.
- - 32.0.93  Make license toml entry optional during 1.16.1
+ - 32.0.93  Make license toml spellEntry optional during 1.16.1
             There are to many existing mods to make this required.
             Yes, we are technically before a RB and can do breaking changes. However this is too large.
  - 32.0.92  Missed one event. NewRegistry needs the marker.
@@ -632,7 +632,7 @@
  - 32.0.30  Fix IItemHandler wrappers for chests not updating both chests (#6875)
  - 32.0.29  Fix missed patch in PlayerList and EntitySelectioonContext. Closes #6846 Closes #6850
  - 32.0.28  Make Type classes safe to use in concurrent loading (#6825)
- - 32.0.27  Fix access levels being hardcoded to private via patch overriding AT entry (#6848)
+ - 32.0.27  Fix access levels being hardcoded to private via patch overriding AT spellEntry (#6848)
  - 32.0.26  Fix tag related issues when connecting to a vanilla server.
  - 32.0.25  Fix Forge's internal handler being registered in wrong place.
             Fix double call to loader end.
@@ -700,7 +700,7 @@
  - 31.2.16 Fix entity pathing not matching vanilla. Closes #6755
  - 31.2.15 Fixed --server argument crashing the client (#6754)
            Closes #6753
-           Moving the fadeOutStart setter above the callback invocation prevents re-entry into the block (which would result in an infinite loop and a StackOverflowException) if the callback causes a render tick (which creating a new ConnectionScreen does).
+           Moving the fadeOutStart setter above the callback invocation prevents re-spellEntry into the block (which would result in an infinite loop and a StackOverflowException) if the callback causes a render tick (which creating a new ConnectionScreen does).
  - 31.2.14 Fixed ItemStack comparison ignoring capabilities when stack nbt is null. (#6764)
  - 31.2.13 Supply matrixstack to IRenderHandler where possible. Closes #6439 (#6537)
  - 31.2.12 Fix StartupQuery not working more than once on the client (#6699)
@@ -1350,7 +1350,7 @@
 27.0
 ====
  - 27.0.61 Update mappings to 20190719 in prep for 1.14.4..
- - 27.0.60 Fix RegistryObject when used with generic registry entry classes
+ - 27.0.60 Fix RegistryObject when used with generic registry spellEntry classes
  - 27.0.59 Remove OnlyIn Client Distribution from Effect and EffectType methods. (#5925)
  - 27.0.58 Change default BrewingRecipe to use an Ingredient for the input instead of ItemStack. Closes #5944
            Add AT for GameRules.register Closes #5946
@@ -1423,13 +1423,13 @@
  - 27.0.14 Fix dimension save data invalid cache being to aggressive.
  - 27.0.13 Fix garbled "µs" (#5818)
  - 27.0.12 Fix fmluserdevdata not being a valid launch target.
- - 27.0.11 Split userdev data entry point into it's own provider to fix duplicate mod issue.
+ - 27.0.11 Split userdev data spellEntry point into it's own provider to fix duplicate mod issue.
  - 27.0.10 Fix configs correcting numeric values when the primitive type differs
            Fix configs with range not clamping the corrected value, and instead
            just replacing with the default
            Closes #5855
  - 27.0.9  Fix item placement losing NBT data in creative mode (#5757)
- - 27.0.8  Add extension to write entry id's to PacketBuffer's (#5812)
+ - 27.0.8  Add extension to write spellEntry id's to PacketBuffer's (#5812)
  - 27.0.7  Add isItemValid check for ItemStackHandler (#5850)
  - 27.0.6  Fix leather armor dye recipe (#5836)
  - 27.0.5  [1.14.x] Replace dye items in Forge tags. (#5843)
@@ -1496,7 +1496,7 @@
            The game will shutdown after this. No other mod elements will happen.
  - 26.0.27 Add params for the exception message
            tweak logging
- - 26.0.26 Expose the data entry point and generate Forge's Tags using it.
+ - 26.0.26 Expose the data spellEntry point and generate Forge's Tags using it.
  - 26.0.25 Add reverse tag cache, to make looking up tags for items/blocks/etc.. less costly.
  - 26.0.24 Update Example Mod (#5781)
  - 26.0.23 Fix AT for EntitySpawnPlacementRegistry.register (#5799)
@@ -1893,7 +1893,7 @@
  - 24.0.163 'Fix' Specific y-levels in water behaving like you're in air. Closes #5341
  - 24.0.162 Reintroduce ObfuscationReflestionHelper closes #5373
  - 24.0.161 Fixed Crosshair attack indicator texture issue Closes #5442
-            Add friendlier error message for @Mod annotations with missing mods.toml entry. Closes #5440
+            Add friendlier error message for @Mod annotations with missing mods.toml spellEntry. Closes #5440
             Remove Log4J console highlighting. As it doesn't work on many consoles, and prints invalid characters. Closes #5420
  - 24.0.160 Let ItemGroup provide it's own tabs image resource location (#5330)
  - 24.0.159 Allow GuiContainer and ItemGroup to specify slot hover colors (#5332)
@@ -2034,7 +2034,7 @@
  - 24.0.73  Allow providing a BufferedImage for banner render generation (#5041)
             Ported to 1.13 using NativeImage
             Co-authored-by: tterrag <tterrag1098@gmail.com>
- - 24.0.72  Fix Mesa biome entry tags in the BiomeDictionary (#5177)
+ - 24.0.72  Fix Mesa biome spellEntry tags in the BiomeDictionary (#5177)
  - 24.0.71  Patch PotionHelper to use registry delegates (#5142)
  - 24.0.70  Update github stale so issues can be Assigned
  - 24.0.69  Fix MC-136995 - Chunk loading and unloading issue with entities placed in exact positions. (#5160)
@@ -2178,7 +2178,7 @@ v8.99
  - v8.99.2083 fix up the examplemod for new FML and add a couple of extra bits.
  - v8.99.2082 Use latest paulscode (removes need for soundfix transformer) and fix gitignore.
  - v8.99.2081 Branding fixup.
- - v8.99.2080 Config GUI tweaks, and MCP is now part of the "minecraft" entry.
+ - v8.99.2080 Config GUI tweaks, and MCP is now part of the "minecraft" spellEntry.
  - v8.99.2079 Installer work, universal obfed to srg names, and binpatches against SRG named clients.
  - v8.99.2078 Fixup the config GUI and get things working again.
  - v8.99.2077 Work on installer json generation.
@@ -2329,7 +2329,7 @@ v8.99
  - v8.99.1993 Fix SlotItemHandler.isItemValid check
  - v8.99.1992 Improve performance of FluidRegistry.getBucketFluids
  - v8.99.1991 Fix received data for last vertex format element not being recorded (#5074)
- - v8.99.1990 Fix missing lang entry for Swim Speed attribute (#5064)
+ - v8.99.1990 Fix missing lang spellEntry for Swim Speed attribute (#5064)
  - v8.99.1989 Added Swim Speed Attribute to EntityLivingBase (#4990)
  - v8.99.1988 Add function to lookup model location for an ItemStack (#5017)
  - v8.99.1987 Allow custom SpawnPlacementType registration (#4973)
@@ -2674,7 +2674,7 @@ v8.99
  - v8.99.1673 Prevent a mutable BlockPos leak in World#setBlockState (#4388)
  - v8.99.1672 Fix IngredientNBT comparing stackSize when checking if ingredient is valid (#4418)
  - v8.99.1671 Auto-detect registry namespace when using a legacy string id in EntityEntryBuilder fixes #4410 (#4411)
- - v8.99.1670 Introduce entity entry builder, useful in the Register<EntityEntry> event replacing needed calls to EntityRegistry. (#4408)
+ - v8.99.1670 Introduce entity spellEntry builder, useful in the Register<EntityEntry> event replacing needed calls to EntityRegistry. (#4408)
  - v8.99.1669 MC 1.12.2 update.
  - v8.99.1668 Fix lightmap calculation vertex clamping (#4387)
  - v8.99.1667 Fix chunk gen mobs not firing the CheckSpawn event. Closes #4394 (#4396)
@@ -2866,7 +2866,7 @@ v8.99
  - v8.99.1503 Fix conflicts
  - v8.99.1502 Implement override tracking and syncing.
               Overrides MUST be registered within a tracked event so we know what mod it came from.
-              This will allow servers/saves to select which mod 'wins' and becomes to active entry.
+              This will allow servers/saves to select which mod 'wins' and becomes to active spellEntry.
               This should also mean that when connecting to a vanilla server things will revert.
  - v8.99.1501 Disable substitution test, substitutions are not managed the way they used to be.
               We do not care about substitutions, People who replace entries should make them compatible with the existing item.
@@ -3022,7 +3022,7 @@ v8.99
  - v8.99.1402 Add LootTableManager to the LootTableLoadEvent (#3717)
  - v8.99.1401 Fix EntityFallingBlock check for ITileEntityProvider (#3711)
  - v8.99.1400 Added ClientChatEvent. Closes #1442 (#3704)
- - v8.99.1399 Fix custom array entry class for config GUI being ignored when adding new entries (#3697)
+ - v8.99.1399 Fix custom array spellEntry class for config GUI being ignored when adding new entries (#3697)
  - v8.99.1398 Use thread groups to detect the effective side (#3644)
  - v8.99.1397 New LivingDestroyBlockEvent for controlling if some entities can destroy blocks (#3628)
  - v8.99.1396 Fix breaking particles on dedicated server. Closes #3825
@@ -3247,7 +3247,7 @@ v8.99
  - v8.99.1228 Fix issues with ZombieVillagers Closes #3398
               1.11 doesn't intertwine zombie types anymore so our edits to split them out for custom professions are not needed.
  - v8.99.1227 Fix Villagers for 1.11 (#3401)
-              - Add cartographer registry entry
+              - Add cartographer registry spellEntry
               - Fix textures for the nitwit
  - v8.99.1226 [1.11] Fix nullability issues around ForgeHooks and Capabilities (#3395)
  - v8.99.1225 Change OreDictionary over from "null" to the new ItemStack system. (#3400)
@@ -3425,7 +3425,7 @@ v8.99
  - v8.99.1094 Merge remote-tracking branch 'origin/pr/3116' into 1.10.x
  - v8.99.1093 Merge remote-tracking branch 'origin/pr/3089' into 1.10.x
  - v8.99.1092 Merge remote-tracking branch 'origin/pr/3125' into 1.10.x
- - v8.99.1091 Fix #3126 - duplicate stat id error - don't use the "universal iterators" in statbuilding, use the one without the duplicate entries. (The duplicate entry one is for rendering setup)
+ - v8.99.1091 Fix #3126 - duplicate stat id error - don't use the "universal iterators" in statbuilding, use the one without the duplicate entries. (The duplicate spellEntry one is for rendering setup)
  - v8.99.1090 FIX : IndexOutOfBoundException
  - v8.99.1089 Tidy up some more todos
  - v8.99.1088 Mark it for actual removal in 1.11
@@ -4912,7 +4912,7 @@ v8.99
  - v8.99.96   New system in EntityRegistry to allow modders to register spawn eggs.
               For entites that do not use the global ID system.
               {Which no mod entity should}
-              Vanilla spawn eggs will now detect a 'entity_name' entry in it's NBT data and use that for spawning/rendering.
+              Vanilla spawn eggs will now detect a 'entity_name' spellEntry in it's NBT data and use that for spawning/rendering.
  - v8.99.95   Patch line number update. Ignore this.
  - v8.99.94   Merge pull request #1952 from ganymedes01/master
               Change permission levels on ore recipes parameters
@@ -5700,12 +5700,12 @@ v99.99-pre
  - v99.99-pre-3994 Fixed messages not being added to the chat history and ClientCommandHandler not being called when sleeping.
  - v99.99-pre-3993 Merge pull request #1581 from Lunatrius/fix-chat
                    Fixed messages not being added to the chat history
- - v99.99-pre-3992 MinecraftForge/FML@5a4d362293fe70e1421d1f22c4a195944731d6ba Finish removing marker in mapping entry names. FMLMissingMappingsEvent/FMLModIdMappingEvent should fire with correct names now.
+ - v99.99-pre-3992 MinecraftForge/FML@5a4d362293fe70e1421d1f22c4a195944731d6ba Finish removing marker in mapping spellEntry names. FMLMissingMappingsEvent/FMLModIdMappingEvent should fire with correct names now.
  - v99.99-pre-3991 Fix incorrect logic in world change clumping.
  - v99.99-pre-3990 Fix incorrect logic in world change clumping.
  - v99.99-pre-3989 Remove our changes to Stitcher slot allocation.
  - v99.99-pre-3988 Fixed messages not being added to the chat history and ClientCommandHandler not being called when sleeping.
- - v99.99-pre-3987 Finish removing marker in mapping entry names. FMLMissingMappingsEvent/FMLModIdMappingEvent should fire with correct names now.
+ - v99.99-pre-3987 Finish removing marker in mapping spellEntry names. FMLMissingMappingsEvent/FMLModIdMappingEvent should fire with correct names now.
  - v99.99-pre-3986 Remove our changes to Stitcher slot allocation.
  - v99.99-pre-3985 MinecraftForge/FML@e3785c28930a218cf9374458c67c34e7fba17922 Ensure that EntitySpawn and OpenGUI packets are handled in the world thread. Also log all errors that are thrown in FutureTasks.
  - v99.99-pre-3984 Ensure that EntitySpawn and OpenGUI packets are handled in the world thread.
@@ -5957,7 +5957,7 @@ v99.99-pre
                    it will be skipped from the modloading cycle. This should let liteloader mods have a .jar extension.
  - v99.99-pre-3830 GIANT FML UPDATE! Bump forge revision number, and fix patches for ItemStack changes. More to come on this branch I expect.
                    MinecraftForge/FML@7c5cf219042581545b6073de4e947448ffa10879 Implement STDOUT/STDERR redirection.
-                   MinecraftForge/FML@bc78e31cb7ad4eda6e5faa173cd6b21e70a2c444 added support for \n in tooltip strings added \n test tooltip localization fixed int/double conversion error in slider entry added test slider scenario that highlighted conversion error
+                   MinecraftForge/FML@bc78e31cb7ad4eda6e5faa173cd6b21e70a2c444 added support for \n in tooltip strings added \n test tooltip localization fixed int/double conversion error in slider spellEntry added test slider scenario that highlighted conversion error
                    MinecraftForge/FML@a2908e5c596bb5502bf455d468d2b1ead0520f55 Clean up a bunch of compiler warnings.
                    MinecraftForge/FML@7f67523d870ae150071c67b002597542eb206725 Update realms to 1.3.2
                    MinecraftForge/FML@73f23c24b85240458f352f248e885684aaff4743 Merge branch 'std-redir' of github.com:Emberwalker/FML
@@ -6119,7 +6119,7 @@ v99.99-pre
                    than a couple of people are online. Tests indicate it is not useful anymore.
  - v99.99-pre-3750 added support for \n in tooltip strings
                    added \n test tooltip localization
-                   fixed int/double conversion error in slider entry
+                   fixed int/double conversion error in slider spellEntry
                    added test slider scenario that highlighted conversion error
  - v99.99-pre-3749 Add FishingHooks
  - v99.99-pre-3748 Sorta revert 908491d5e7ac26becdac938f38cc90d6b9d73ce1 but merge assets
@@ -6165,7 +6165,7 @@ v99.99-pre
                    MinecraftForge/FML@ab52901b8b47a525e2719cf280327e97bad7f91e Force preferIPv4Stack to true early in the load chain to combat netty loopback issues.
                    MinecraftForge/FML@11893fbbb76569417a415ae794494b8c1150a716 Add system property to skip doing world backups when game registry changes. This is SEVERLY ill-advised, if you do this DO NOT ask for any support.
                    MinecraftForge/FML@fdb6b34b8fc3f1e0c6beb7bfb940a01a309f1603 Update authlib and realms to latest json data.
-                   MinecraftForge/FML@b3a74882b4d0d704d7061b9d896febb59ab0c269 added slider controls for numerics. default control is textbox, but slider can be used as a custom list entry class. fixed constructor javadocs in GuiConfig
+                   MinecraftForge/FML@b3a74882b4d0d704d7061b9d896febb59ab0c269 added slider controls for numerics. default control is textbox, but slider can be used as a custom list spellEntry class. fixed constructor javadocs in GuiConfig
                    MinecraftForge/FML@7c6d1f7568885ff677e34692ff87b1f0826dfd48 Merge pull request #468 from bspkrs/master
                    MinecraftForge/FML@692d955c1a5b6d0b8601ae88632ef42136d37393 Update tweaker login to use authlib.
                    MinecraftForge/FML@c2119eb1c1246ba37304d9e565b4430ed7056db1 Update realms library to 1.3.1, and implement network latch when connecting to Realms. Tested and working.
@@ -6180,8 +6180,8 @@ v99.99-pre
  - v99.99-pre-3722 Fixed Enchantment.addToBookList Closes #1160
  - v99.99-pre-3721 Add ability for modders to designate custom biome types. And remove note about automatically registering. Closes #1167
  - v99.99-pre-3720 Merge pull request #468 from bspkrs/master
-                   Added slider controls for numerics. Default control is textbox, but slider can be used as a custom list entry class.
- - v99.99-pre-3719 added slider controls for numerics. default control is textbox, but slider can be used as a custom list entry class.
+                   Added slider controls for numerics. Default control is textbox, but slider can be used as a custom list spellEntry class.
+ - v99.99-pre-3719 added slider controls for numerics. default control is textbox, but slider can be used as a custom list spellEntry class.
                    fixed constructor javadocs in GuiConfig
  - v99.99-pre-3718 Merge pull request #1194 from diesieben07/potion-icon
                    Added hook for potion inventory icons
@@ -8496,7 +8496,7 @@ v99.99-pre
  - v99.99-pre-2341 More interface work
  - v99.99-pre-2340 Adding interface for other custom model format importers to implement
  - v99.99-pre-2339 Switch out String.matches in favour of Pattern/Matcher usage, and a tad more documentation.
-                   Fixed a bug in texture coordinate parsing (can have 2-3 values per entry, instead of the 3-4 I had before)
+                   Fixed a bug in texture coordinate parsing (can have 2-3 values per spellEntry, instead of the 3-4 I had before)
  - v99.99-pre-2338 Wavefront object importer. Imports Wavefront object and offers some simple render methods for rendering the models in game. Modders have complete access to all the data in the model to write their own rendering related code as well.
  - v99.99-pre-2337 Update MCP names to recent published names
                    Updated FML:
@@ -9290,7 +9290,7 @@ v99.99-pre
  - v99.99-pre-1861 MCP will reobf classes with reserved names in windows to a legal file name. And FML will try to read these classes over the default ones.
  - v99.99-pre-1860 Output obfed files with reserved windows names to _NAME.class
  - v99.99-pre-1859 Merge remote-tracking branch 'origin/master'
- - v99.99-pre-1858 Fixe BiomeDecorator AT entry.
+ - v99.99-pre-1858 Fixe BiomeDecorator AT spellEntry.
  - v99.99-pre-1857 Add quotes around javac command.
  - v99.99-pre-1856 Drop the item in onBlockHarvested, not breakBlock
  - v99.99-pre-1855 Fix up block drops for skulls and cocoa

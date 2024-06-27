@@ -2,6 +2,7 @@ package com.yuanno.blockclover.data.spell;
 
 import com.yuanno.blockclover.api.spells.Spell;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public interface ISpellData {
@@ -11,7 +12,7 @@ public interface ISpellData {
     ArrayList<Spell> getUnlockedSpells();
     void clearUnlockedSpells();
 
-    void addEquippedSpell(Spell spell, int placement);
+    void addEquippedSpell(@Nullable Spell spell, int placement);
 
     void addEquippedSpell(Spell spell);
 
