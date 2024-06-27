@@ -45,7 +45,7 @@ public class CombatModeOverlay {
                 RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
                 if (spellData.getEquippedSpells().size() >= i + 1 && !spellData.getEquippedSpells().isEmpty() && spellData.getEquippedSpells().get(i) != null)
                 {
-                    RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(spellData.getEquippedSpells().get(i)), 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                    RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(spellData.getEquippedSpells().get(i)), 141 + (i * 21), 238, 0, 16, 16, 16, 16, 0, 0, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
                 }
             }
             matrixStack.popPose();
