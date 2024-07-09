@@ -1,10 +1,13 @@
 package com.yuanno.blockclover.init;
 
 import com.yuanno.blockclover.Main;
+import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.client.screens.menu.PlayerOverviewScreen;
 import com.yuanno.blockclover.client.screens.menu.PlayerSpellScreen;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
+import com.yuanno.blockclover.data.spell.ISpellData;
+import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
 import net.minecraft.client.Minecraft;
@@ -16,6 +19,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
@@ -29,7 +34,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
 @Mod.EventBusSubscriber(modid = Main.MODID, value = Dist.CLIENT)
 public class ModKeyBinds {
     public static KeyBinding infocard, spellscreen, combatMode;
-
+    public static KeyBinding combatKey1, combatKey2, combatKey3, combatKey4, combatKey5, combatKey6, combatKey7, combatKey8, combatKey9;
+    private static KeyBinding[] keyBindsCombatbar;
     public static void init()
     {
         infocard = new KeyBinding("keys.blockclover.info_card", GLFW_KEY_P, "category.blockclover.gui");
@@ -38,6 +44,29 @@ public class ModKeyBinds {
         ClientRegistry.registerKeyBinding(spellscreen);
         combatMode = new KeyBinding("keys.blockclover.combat_mode", GLFW.GLFW_KEY_R, "category.blockclover.combat_mode");
         ClientRegistry.registerKeyBinding(combatMode);
+        combatKey1 = new KeyBinding("keys.blockclover.combat_key_1", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey1);
+        combatKey2 = new KeyBinding("keys.blockclover.combat_key_2", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey2);
+        combatKey3 = new KeyBinding("keys.blockclover.combat_key_3", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey3);
+        combatKey4 = new KeyBinding("keys.blockclover.combat_key_4", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey4);
+        combatKey5 = new KeyBinding("keys.blockclover.combat_key_5", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey5);
+        combatKey6 = new KeyBinding("keys.blockclover.combat_key_6", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey6);
+        combatKey7 = new KeyBinding("keys.blockclover.combat_key_7", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey7);
+        combatKey8 = new KeyBinding("keys.blockclover.combat_key_8", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey8);
+        combatKey9 = new KeyBinding("keys.blockclover.combat_key_9", GLFW.GLFW_KEY_1, "category.blockclover.combat_mode");
+        ClientRegistry.registerKeyBinding(combatKey9);
+
+        keyBindsCombatbar = new KeyBinding[]
+                {
+                        combatKey1, combatKey2, combatKey3, combatKey4, combatKey5, combatKey6, combatKey7, combatKey8, combatKey9
+                };
     }
 
     @SubscribeEvent
@@ -77,6 +106,24 @@ public class ModKeyBinds {
             else
                 entityStats.getCombatData().setCombatMode(true);
             PacketHandler.sendToServer(new CSyncEntityStatsPacket(entityStats));
+        }
+        int j = keyBindsCombatbar.length;
+
+        for (int i = 0; i < j; i++)
+        {
+            if (keyBindsCombatbar[i].isDown())
+            {
+                ISpellData spellData = SpellDataCapability.get(player);
+                Spell spellUsed = spellData.getEquippedSpells().get(i);
+                if (spellUsed != null)
+                {
+                    System.out.println("FIREBALL FR");
+                }
+                IEntityStats entityStats = EntityStatsCapability.get(player);
+                if (!entityStats.getCombatData().getCombatMode()) {
+                    player.inventory.selected = i;
+                }
+            }
         }
     }
 }
