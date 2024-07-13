@@ -39,6 +39,10 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     {
         this.currentCooldown = amount;
     }
+    public void alterCurrentCooldown(int amount)
+    {
+        this.currentCooldown += amount;
+    }
     public int getCurrentCooldown()
     {
         return this.currentCooldown;

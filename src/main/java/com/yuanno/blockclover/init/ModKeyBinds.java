@@ -10,6 +10,7 @@ import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
+import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
@@ -117,7 +118,12 @@ public class ModKeyBinds {
                 Spell spellUsed = spellData.getEquippedSpells().get(i);
                 if (spellUsed != null)
                 {
-                    System.out.println("FIREBALL FR");
+                    if (spellUsed.getState().equals(Spell.STATE.READY))
+                    {
+                        spellUsed.setState(Spell.STATE.COOLDOWN);
+                        spellUsed.setCurrentCooldown(spellUsed.getMaxCooldown() * 20);
+                        PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
+                    }
                 }
                 IEntityStats entityStats = EntityStatsCapability.get(player);
                 if (!entityStats.getCombatData().getCombatMode()) {
