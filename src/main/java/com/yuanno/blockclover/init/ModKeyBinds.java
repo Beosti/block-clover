@@ -10,6 +10,7 @@ import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
+import com.yuanno.blockclover.networking.client.CSyncKeyPressedPacket;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -120,8 +121,18 @@ public class ModKeyBinds {
                 {
                     if (spellUsed.getState().equals(Spell.STATE.READY))
                     {
+                        PacketHandler.sendToServer(new CSyncKeyPressedPacket(i));
                         spellUsed.setState(Spell.STATE.COOLDOWN);
                         spellUsed.setCurrentCooldown(spellUsed.getMaxCooldown() * 20);
+                        spellUsed.alterSpellExperience(1);
+                        System.out.println(spellUsed.getSpellExperience());
+                        System.out.println(spellUsed.getSpellMaxExperience());
+                        if (spellUsed.getSpellMaxExperience() <= spellUsed.getSpellExperience())
+                        {
+                            spellUsed.alterSpellLevel(1);
+                            spellUsed.setSpellExperience(0);
+                            spellUsed.alterSpellMaxExperience(10);
+                        }
                         PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
                     }
                 }

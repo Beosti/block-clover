@@ -1,10 +1,7 @@
 package com.yuanno.blockclover;
 
 import com.yuanno.blockclover.client.screens.overlay.CombatModeOverlay;
-import com.yuanno.blockclover.init.ModCapabilities;
-import com.yuanno.blockclover.init.ModKeyBinds;
-import com.yuanno.blockclover.init.ModNetwork;
-import com.yuanno.blockclover.init.ModSpells;
+import com.yuanno.blockclover.init.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -35,6 +32,7 @@ public class Main
     public Main() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModRegistry.ENTITY_TYPES.register(modEventBus);
         ModSpells.SPELLS.register(modEventBus);
         ModSpells.register(modEventBus);
 

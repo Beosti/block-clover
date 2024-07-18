@@ -1,4 +1,4 @@
-package com.yuanno.blockclover.events.ability;
+package com.yuanno.blockclover.events.spell;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.spells.Spell;

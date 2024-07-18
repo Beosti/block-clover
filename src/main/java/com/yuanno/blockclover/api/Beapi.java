@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.blockclover.Main;
+import com.yuanno.blockclover.init.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -36,6 +37,7 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -44,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Beapi {
 
@@ -506,7 +509,15 @@ public class Beapi {
     }
 
      */
+    public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(String localizedName, Supplier<EntityType<T>> supp)
+    {
+        String resourceName = Beapi.getResourceName(localizedName);
+        Beapi.getLangMap().put("entity." + Main.MODID + "." + resourceName, localizedName);
 
+        RegistryObject<EntityType<T>> reg = ModRegistry.ENTITY_TYPES.register(resourceName, supp);
+
+        return reg;
+    }
     public static <T extends Entity> EntityType.Builder createEntityType(EntityType.IFactory<T> factory)
     {
         return createEntityType(factory, EntityClassification.MISC);

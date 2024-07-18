@@ -2,8 +2,10 @@ package com.yuanno.blockclover.client.util;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.util.BCHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -48,7 +50,7 @@ public class RenderHelper {
         Tessellator.getInstance().end();
     }
 
-    public static void drawAbilityTooltip(Spell ability, MatrixStack mStack, java.util.List<? extends ITextProperties> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, int backgroundColorStart, int backgroundColorEnd, int borderColorStart, int borderColorEnd, FontRenderer font)
+    public static void drawAbilityTooltip(Spell spell, MatrixStack mStack, java.util.List<? extends ITextProperties> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, int backgroundColorStart, int backgroundColorEnd, int borderColorStart, int borderColorEnd, FontRenderer font)
     {
         ItemStack stack = ItemStack.EMPTY;
         if (!textLines.isEmpty())
@@ -151,7 +153,7 @@ public class RenderHelper {
             GuiUtils.drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY - 3 + 1, tooltipX - 3 + 1, tooltipY + tooltipHeight + 3 - 1, borderColorStart, borderColorEnd);
             GuiUtils.drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 2, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, borderColorEnd, borderColorEnd);
 
-            String abilityName = ability.getName();
+            String abilityName = spell.getName();
             int nameWidth = font.width(abilityName);
             Color iconColor = Beapi.hexToRGB("#333333");
             Set<ResourceLocation> coloredIcons = new HashSet<>();
@@ -191,16 +193,25 @@ public class RenderHelper {
                 spacing += 12;
                 RendererHelper.drawIcon(icon, event.getMatrixStack(), tooltipX + nameWidth + (spacing - 12), tooltipY - 2, 500, 12, 12, iconColor.getRed() , iconColor.getGreen() , iconColor.getBlue(), 1.0f);
             }
+
+
             for(ResourceLocation icon : staticIcons) {
                 spacing += 12;
                 System.out.println(tooltipY);
                 RendererHelper.drawIcon(icon, event.getMatrixStack(), tooltipX - 18 + (spacing - 12), (tooltipY + tooltipHeight) - 14, 500, 16, 16, 1.0f, 1.0f, 1.0f, 1.0f);
             }
 
+
              */
+            // RENDER THE XP BAR OF THE SPELL
+            ResourceLocation emptyExperienceBar = new ResourceLocation(Main.MODID, "textures/gui/empty_experience_bar.png");
+            RenderHelper.drawIcon(emptyExperienceBar, tooltipX + 0, tooltipY + 27, 500, 200, 32, 16, 16, 0, 0, 16, 16, 1, 1, 1);
+            ResourceLocation filledExperienceBar = new ResourceLocation(Main.MODID, "textures/gui/full_experience_bar.png");
+            float width = 200 * ((float) spell.getSpellExperience() / spell.getSpellMaxExperience());
+            RenderHelper.drawIcon(filledExperienceBar, tooltipX + 0, tooltipY + 27, 501, (int) width, 32, 16, 16, 0, 0, 16, 16, 1, 1, 1);
+            // RENDER THE XP AND LEVEL STRING
 
             MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostBackground(stack, textLines, mStack, tooltipX, tooltipY, font, tooltipTextWidth, tooltipHeight));
-
             IRenderTypeBuffer.Impl renderType = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());
             mStack.translate(0.0D, 0.0D, zLevel);
 

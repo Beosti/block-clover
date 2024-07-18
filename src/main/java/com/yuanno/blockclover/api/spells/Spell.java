@@ -3,20 +3,36 @@ package com.yuanno.blockclover.api.spells;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import java.util.ArrayList;
 
 
 public class Spell extends ForgeRegistryEntry<Spell> {
 
+    private ArrayList<SpellComponent> spellComponents = new ArrayList<>();
     private String name;
     private String description;
     private int currentCooldown;
     private int maxCooldown;
     private STATE state;
     private int experienceGain;
+    private int spellMaxExperience;
+    private int spellExperience;
+    private int spellLevel;
 
     public Spell()
     {
         this.setState(Spell.STATE.READY);
+        this.setSpellLevel(1);
+        this.setSpellExperience(0);
+    }
+
+    public void addSpellCompontent(SpellComponent spellComponent)
+    {
+        this.spellComponents.add(spellComponent);
+    }
+    public ArrayList<SpellComponent> getSpellComponents()
+    {
+        return this.spellComponents;
     }
 
     public void setName(String name)
@@ -42,6 +58,45 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     public void alterCurrentCooldown(int amount)
     {
         this.currentCooldown += amount;
+    }
+
+    public void setSpellMaxExperience(int maxExperience)
+    {
+        this.spellMaxExperience = maxExperience;
+    }
+    public void alterSpellMaxExperience(int amount)
+    {
+        this.spellMaxExperience += amount;
+    }
+    public int getSpellMaxExperience()
+    {
+        return this.spellMaxExperience;
+    }
+
+    public void setSpellExperience(int experience)
+    {
+        this.spellExperience = experience;
+    }
+    public void alterSpellExperience(int amount)
+    {
+        this.spellExperience += amount;
+    }
+    public int getSpellExperience()
+    {
+        return this.spellExperience;
+    }
+
+    public void setSpellLevel(int level)
+    {
+        this.spellLevel = level;
+    }
+    public void alterSpellLevel(int amount)
+    {
+        this.spellLevel += amount;
+    }
+    public int getSpellLevel()
+    {
+        return this.spellLevel;
     }
     public int getCurrentCooldown()
     {
@@ -96,6 +151,9 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         compoundNBT.putInt("maxCooldown", this.getMaxCooldown());
         compoundNBT.putString("state", this.getState().toString());
         compoundNBT.putInt("experienceGain", this.getExperienceGain());
+        compoundNBT.putInt("maxSpellExperience", this.getSpellMaxExperience());
+        compoundNBT.putInt("spellExperience", this.getSpellExperience());
+        compoundNBT.putInt("spellLevel", this.getSpellLevel());
 
         return compoundNBT;
     }
@@ -108,5 +166,8 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         this.setMaxCooldown(compoundNBT.getInt("maxCooldown"));
         this.setState(STATE.valueOf(compoundNBT.getString("state")));
         this.setExperienceGain(compoundNBT.getInt("experienceGain"));
+        this.setSpellMaxExperience(compoundNBT.getInt("maxSpellExperience"));
+        this.setSpellExperience(compoundNBT.getInt("spellExperience"));
+        this.setSpellLevel(compoundNBT.getInt("spellLevel"));
     }
 }

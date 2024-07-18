@@ -45,7 +45,7 @@ public class CombatModeOverlay {
             for (int i = 0; i < 9; i++)
             {
                 if (spellData.getEquippedSpells().get(i) != null && spellData.getEquippedSpells().get(i).getState().equals(Spell.STATE.COOLDOWN)) {
-                    RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed(), 0, 0);
+                    RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 1, 0, 0);
                 }
                 else
                     RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
