@@ -3,6 +3,7 @@ package com.yuanno.blockclover.entity.fire;
 import com.yuanno.blockclover.entity.SpellProjectileEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class FireballProjectile extends SpellProjectileEntity {
@@ -20,7 +21,8 @@ public class FireballProjectile extends SpellProjectileEntity {
         this.setPhysical(false);
     }
 
-    public FireballProjectile() {
-        super(FireProjectiles.FIREBALL.get(), null);
+    public static SpellProjectileEntity projectile(PlayerEntity player)
+    {
+        return new FireballProjectile(player.level, player);
     }
 }

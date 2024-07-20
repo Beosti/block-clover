@@ -53,6 +53,15 @@ public class SpellDataCapability {
                             }
                         }
                         props.put("equipped_spells", equippedSpells);
+
+                        /*
+                        if (instance.getPreviousSpellUsed() != null)
+                        {
+                            CompoundNBT lastUsedSpell = instance.getPreviousSpellUsed().save();
+                            props.put("last_used_spell", lastUsedSpell);
+                        }
+
+                         */
                         return props;
                     }
 
@@ -91,6 +100,17 @@ public class SpellDataCapability {
                                 instance.addEquippedSpell(spell);
                             }
                         }
+
+                        /*
+                        CompoundNBT lastUsedSpell = compoundNBT.getCompound("last_used_spell");
+                        if (lastUsedSpell != null)
+                        {
+                            Spell spell = new Spell();
+                            spell.load(lastUsedSpell);
+                            instance.setPreviousSpellUsed(spell);
+                        }
+                        
+                         */
                     }
                     }, SpellDatabase::new);
     }

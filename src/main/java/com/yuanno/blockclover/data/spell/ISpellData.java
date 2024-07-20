@@ -20,4 +20,8 @@ public interface ISpellData {
     void removeEquippedSpell(Spell spell);
     ArrayList<Spell> getEquippedSpells();
     void clearEquippedSpells();
+
+    void setPreviousSpellUsed(Spell spell);
+
+    Spell getPreviousSpellUsed();
 }

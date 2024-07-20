@@ -125,8 +125,7 @@ public class ModKeyBinds {
                         spellUsed.setState(Spell.STATE.COOLDOWN);
                         spellUsed.setCurrentCooldown(spellUsed.getMaxCooldown() * 20);
                         spellUsed.alterSpellExperience(1);
-                        System.out.println(spellUsed.getSpellExperience());
-                        System.out.println(spellUsed.getSpellMaxExperience());
+                        spellData.setPreviousSpellUsed(spellUsed);
                         if (spellUsed.getSpellMaxExperience() <= spellUsed.getSpellExperience())
                         {
                             spellUsed.alterSpellLevel(1);

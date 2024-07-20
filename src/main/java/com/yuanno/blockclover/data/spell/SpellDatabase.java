@@ -74,4 +74,16 @@ public class SpellDatabase implements ISpellData {
         this.equippedSpells.clear();
     }
 
+    @Override
+    public void setPreviousSpellUsed(Spell spell)
+    {
+        this.previousSpellUsed = spell;
+    }
+
+    @Override
+    public Spell getPreviousSpellUsed()
+    {
+        return this.previousSpellUsed;
+    }
+
 }

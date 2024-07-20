@@ -13,6 +13,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,6 @@ public class SpellProjectileEntity extends ThrowableEntity
 
 	private static final Block[] NON_SOLID_BLOCKS = new Block[] { Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SEAGRASS, Blocks.TALL_SEAGRASS, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.DEAD_BUSH, Blocks.ROSE_BUSH };
 
-
 	public SpellProjectileEntity(EntityType type, World world)
 	{
 		super(type, world);
@@ -98,7 +98,8 @@ public class SpellProjectileEntity extends ThrowableEntity
 		super(type, thrower, world);
 		this.maxLife = this.life;
 		this.damage = 0.1f;
-		this.setThrower(thrower);
+		if (thrower != null)
+			this.setThrower(thrower);
 		
 		this.source = new IndirectEntityDamageSource("ability_projectile", this, thrower).setProjectile();
 		this.bypassingSource = new IndirectEntityDamageSource("ability_projectile", this, thrower).setProjectile().bypassArmor();		
@@ -696,4 +697,5 @@ public class SpellProjectileEntity extends ThrowableEntity
 	{
 		EffectInstance[] getEffects();
 	}
+
 }

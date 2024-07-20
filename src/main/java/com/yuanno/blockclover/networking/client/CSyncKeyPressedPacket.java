@@ -1,5 +1,6 @@
 package com.yuanno.blockclover.networking.client;
 
+import com.yuanno.blockclover.api.spells.ComboSpellComponent;
 import com.yuanno.blockclover.api.spells.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.data.spell.ISpellData;
@@ -50,7 +51,9 @@ public class CSyncKeyPressedPacket {
                 for (int i = 0; i < usedSpell.getSpellComponents().size(); i++)
                 {
                     if (usedSpell.getSpellComponents().get(i) instanceof ProjectileSpellComponent)
-                        ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player);
+                        ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player, usedSpell);
+                    //if (usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo()))
+                    //    ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
                 }
             });
         }

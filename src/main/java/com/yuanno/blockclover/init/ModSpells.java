@@ -5,6 +5,7 @@ import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.spells.FireBallSpell;
+import com.yuanno.blockclover.spells.TestBallSpell;
 import com.yuanno.blockclover.util.BeRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;

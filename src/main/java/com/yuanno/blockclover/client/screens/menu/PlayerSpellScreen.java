@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.SpellComponent;
 import com.yuanno.blockclover.client.util.Entry;
 import com.yuanno.blockclover.client.util.RenderHelper;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
@@ -23,8 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -164,7 +164,24 @@ public class PlayerSpellScreen extends Screen {
         String name = spell.getName();
         String description = spell.getDescription();
         int maxCooldown = spell.getMaxCooldown();
-        StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" + "Cooldown: " + maxCooldown);
+        StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" +
+                "Cooldown: " + maxCooldown +
+                "\n" + "Level: " +spell.getSpellLevel() +
+                "\n" + spell.getSpellExperience() + "/" + spell.getSpellMaxExperience());
+        for (int i = 0; i < spell.getSpellComponents().size(); i++)
+        {
+            SpellComponent spellComponent = spell.getSpellComponents().get(i);
+            HashMap<Integer, String> upgradeMap = spellComponent.getUpgradeMap();
+            for (Map.Entry<Integer, String> entry : upgradeMap.entrySet())
+            {
+                int keyLevel = entry.getKey();
+                String valueName = entry.getValue();
+                if (keyLevel != 0) {
+                    longString.append("\n" + "Unlock: " + valueName + " at level " + keyLevel);
+                    break;
+                }
+            }
+        }
         RenderHelper.drawAbilityTooltip(spell, matrixStack, Arrays.asList(new StringTextComponent(longString.toString())), mouseX, mouseY, this.width, this.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, this.getMinecraft().font);
 
     }

@@ -159,56 +159,13 @@ public class RenderHelper {
             Set<ResourceLocation> coloredIcons = new HashSet<>();
             Set<ResourceLocation> staticIcons = new HashSet<>();
 
-            /*
-            if (ability.getSourceHakiNature() != null) {
-                if (ability.getSourceHakiNature().getTexture() != null) {
-                    coloredIcons.add(ability.getSourceHakiNature().getTexture());
-                }
-            }
 
-            if (ability.getSourceTypes() != null) {
-                for (SourceType type : ability.getSourceTypes()) {
-                    if (type.getTexture() != null) {
-                        coloredIcons.add(type.getTexture());
-                    }
-                }
-            }
-             */
-
-            /*
-            if (ability.getSourceElement() != null) {
-                if (ability.getSourceElement().getTexture() != null) {
-                    coloredIcons.add(ability.getSourceElement().getTexture());
-                }
-            }
-
-            if (ability instanceof IWaveAbility)
-                staticIcons.add(new ResourceLocation(Main.MODID, "textures/gui/icons/wave.png"));
-            if (ability instanceof IAttackAbility)
-                staticIcons.add(new ResourceLocation(Main.MODID, "textures/gui/icons/attack.png"));
-            if (ability instanceof IShootAbility)
-                staticIcons.add(new ResourceLocation(Main.MODID, "textures/gui/icons/shoot.png"));
-            int spacing = 4;
-            for(ResourceLocation icon : coloredIcons) {
-                spacing += 12;
-                RendererHelper.drawIcon(icon, event.getMatrixStack(), tooltipX + nameWidth + (spacing - 12), tooltipY - 2, 500, 12, 12, iconColor.getRed() , iconColor.getGreen() , iconColor.getBlue(), 1.0f);
-            }
-
-
-            for(ResourceLocation icon : staticIcons) {
-                spacing += 12;
-                System.out.println(tooltipY);
-                RendererHelper.drawIcon(icon, event.getMatrixStack(), tooltipX - 18 + (spacing - 12), (tooltipY + tooltipHeight) - 14, 500, 16, 16, 1.0f, 1.0f, 1.0f, 1.0f);
-            }
-
-
-             */
             // RENDER THE XP BAR OF THE SPELL
             ResourceLocation emptyExperienceBar = new ResourceLocation(Main.MODID, "textures/gui/empty_experience_bar.png");
-            RenderHelper.drawIcon(emptyExperienceBar, tooltipX + 0, tooltipY + 27, 500, 200, 32, 16, 16, 0, 0, 16, 16, 1, 1, 1);
+            RenderHelper.drawIcon(emptyExperienceBar, tooltipX + 40, tooltipY + 37, 500, 160, 38, 16, 16, 0, 0, 16, 16, 1, 1, 1);
             ResourceLocation filledExperienceBar = new ResourceLocation(Main.MODID, "textures/gui/full_experience_bar.png");
-            float width = 200 * ((float) spell.getSpellExperience() / spell.getSpellMaxExperience());
-            RenderHelper.drawIcon(filledExperienceBar, tooltipX + 0, tooltipY + 27, 501, (int) width, 32, 16, 16, 0, 0, 16, 16, 1, 1, 1);
+            float width = 160 * ((float) spell.getSpellExperience() / spell.getSpellMaxExperience());
+            RenderHelper.drawIcon(filledExperienceBar, tooltipX + 40, tooltipY + 37, 501, (int) width, 38, 16, 16, 0, 0, 16, 16, 1, 1, 1);
             // RENDER THE XP AND LEVEL STRING
 
             MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostBackground(stack, textLines, mStack, tooltipX, tooltipY, font, tooltipTextWidth, tooltipHeight));
