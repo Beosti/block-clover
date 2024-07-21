@@ -11,7 +11,7 @@ public class SpellDatabase implements ISpellData {
     private ArrayList<Spell> unlockedSpells = new ArrayList<Spell>();
     private ArrayList<Spell> equippedSpells = new ArrayList<Spell>(Collections.nCopies(9, null));
     
-    private Spell previousSpellUsed;
+    private Spell previousSpellUsed = null;
 
     @Override
     public void addUnlockedSpell(@Nullable Spell spell)
@@ -84,6 +84,12 @@ public class SpellDatabase implements ISpellData {
     public Spell getPreviousSpellUsed()
     {
         return this.previousSpellUsed;
+    }
+
+    @Override
+    public void clearPreviousSpellUsed()
+    {
+        this.previousSpellUsed = null;
     }
 
 }

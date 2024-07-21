@@ -54,14 +54,19 @@ public class SpellDataCapability {
                         }
                         props.put("equipped_spells", equippedSpells);
 
-                        /*
-                        if (instance.getPreviousSpellUsed() != null)
+                        Spell spell = instance.getPreviousSpellUsed();
+                        if (spell != null)
                         {
-                            CompoundNBT lastUsedSpell = instance.getPreviousSpellUsed().save();
-                            props.put("last_used_spell", lastUsedSpell);
+                            CompoundNBT lastUsedSpellNBT = spell.save();
+                            props.put("last_used_spell", lastUsedSpellNBT);
+                        }
+                        else
+                        {
+                            CompoundNBT compoundNBT = new CompoundNBT();
+                            props.put("last_used_spell", compoundNBT);
                         }
 
-                         */
+
                         return props;
                     }
 
@@ -101,16 +106,17 @@ public class SpellDataCapability {
                             }
                         }
 
-                        /*
-                        CompoundNBT lastUsedSpell = compoundNBT.getCompound("last_used_spell");
-                        if (lastUsedSpell != null)
+                        instance.clearPreviousSpellUsed();
+                        CompoundNBT nbtSpell = compoundNBT.getCompound("last_used_spell");
+                        Spell spell = GameRegistry.findRegistry(Spell.class).getValue(new ResourceLocation(nbtSpell.getString("id")));
+                        if (spell == null)
+                            instance.setPreviousSpellUsed(null);
+                        else
                         {
-                            Spell spell = new Spell();
-                            spell.load(lastUsedSpell);
+                            spell.load(nbtSpell);
                             instance.setPreviousSpellUsed(spell);
                         }
-                        
-                         */
+
                     }
                     }, SpellDatabase::new);
     }

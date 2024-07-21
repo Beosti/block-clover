@@ -22,7 +22,7 @@ public class ServerChatEvent {
             PlayerEntity player = event.getPlayer();
             ISpellData spellData = SpellDataCapability.get(player);
             spellData.addUnlockedSpell(FireBallSpell.INSTANCE);
-            //spellData.addEquippedSpell(TestBallSpell.INSTANCE);
+            spellData.addUnlockedSpell(TestBallSpell.INSTANCE);
             PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         }
     }

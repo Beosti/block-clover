@@ -24,4 +24,6 @@ public interface ISpellData {
     void setPreviousSpellUsed(Spell spell);
 
     Spell getPreviousSpellUsed();
+
+    void clearPreviousSpellUsed();
 }

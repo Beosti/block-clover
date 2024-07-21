@@ -6,6 +6,8 @@ import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.data.spell.SpellDatabase;
+import com.yuanno.blockclover.networking.PacketHandler;
+import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -52,9 +54,12 @@ public class CSyncKeyPressedPacket {
                 {
                     if (usedSpell.getSpellComponents().get(i) instanceof ProjectileSpellComponent)
                         ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player, usedSpell);
-                    //if (usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo()))
-                    //    ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
+                    if (spellData.getPreviousSpellUsed() != null &&  usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo())) {
+                        ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
+                    }
                 }
+                //spellData.setPreviousSpellUsed(usedSpell);
+                //PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
             });
         }
         ctx.get().setPacketHandled(true);
