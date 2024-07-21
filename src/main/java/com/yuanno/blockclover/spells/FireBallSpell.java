@@ -12,15 +12,16 @@ public class FireBallSpell extends Spell {
             .onHitEffect(3, (onhit) -> onhit.setSecondsOnFire(3))
             .levelTripleShot(5)
             .build();
-    private ComboSpellComponent comboSpellComponent = new ComboSpellComponent();
+    private ComboSpellComponent comboSpellComponent = new ComboSpellComponent.ComboSpellComponentBuilder()
+            .setCombo((player) -> player.heal(20))
+            .setSpellToCombo(TestBallSpell.INSTANCE)
+            .build();
     public FireBallSpell()
     {
         this.setName("Fireball");
         this.setDescription("Fires a ball of fire towards where you're looking");
         this.setMaxCooldown(10);
         this.setSpellMaxExperience(3);
-        comboSpellComponent.combo = (player) -> {player.heal(20);};
-        comboSpellComponent.setSpellToCombo(TestBallSpell.INSTANCE);
         this.addSpellCompontent(comboSpellComponent);
         this.addSpellCompontent(spellComponent);
     }
