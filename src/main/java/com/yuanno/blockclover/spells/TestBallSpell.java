@@ -1,6 +1,6 @@
 package com.yuanno.blockclover.spells;
 
-import com.yuanno.blockclover.api.spells.ProjectileSpellComponent;
+import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.entity.fire.FireballProjectile;
 

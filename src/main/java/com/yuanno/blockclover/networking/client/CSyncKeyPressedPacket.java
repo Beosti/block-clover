@@ -1,17 +1,14 @@
 package com.yuanno.blockclover.networking.client;
 
-import com.yuanno.blockclover.api.spells.ComboSpellComponent;
-import com.yuanno.blockclover.api.spells.ProjectileSpellComponent;
+import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
+import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
-import com.yuanno.blockclover.data.spell.SpellDatabase;
-import com.yuanno.blockclover.networking.PacketHandler;
-import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
+import com.yuanno.blockclover.events.spell.SpellUseEvent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -50,16 +47,8 @@ public class CSyncKeyPressedPacket {
 
                 ISpellData spellData = SpellDataCapability.get(player);
                 Spell usedSpell = spellData.getEquippedSpells().get(message.key);
-                for (int i = 0; i < usedSpell.getSpellComponents().size(); i++)
-                {
-                    if (usedSpell.getSpellComponents().get(i) instanceof ProjectileSpellComponent)
-                        ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player, usedSpell);
-                    if (spellData.getPreviousSpellUsed() != null &&  usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo())) {
-                        ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
-                    }
-                }
-                //spellData.setPreviousSpellUsed(usedSpell);
-                //PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
+                SpellUseEvent spellUseEvent = new SpellUseEvent(player, usedSpell);
+                MinecraftForge.EVENT_BUS.post(spellUseEvent);
             });
         }
         ctx.get().setPacketHandled(true);

@@ -2,6 +2,9 @@ package com.yuanno.blockclover.init;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.SpellComponent;
+import com.yuanno.blockclover.api.spells.UtilSpell;
+import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
 import com.yuanno.blockclover.client.screens.menu.PlayerOverviewScreen;
 import com.yuanno.blockclover.client.screens.menu.PlayerSpellScreen;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
@@ -117,24 +120,33 @@ public class ModKeyBinds {
             {
                 ISpellData spellData = SpellDataCapability.get(player);
                 Spell spellUsed = spellData.getEquippedSpells().get(i);
-                if (spellUsed != null)
+                if (spellUsed == null)
+                    continue;
+                Spell.STATE usedSpellState = spellUsed.getState();
+                if (usedSpellState.equals(Spell.STATE.READY))
                 {
-                    if (spellUsed.getState().equals(Spell.STATE.READY))
-                    {
-                        PacketHandler.sendToServer(new CSyncKeyPressedPacket(i));
-                        spellUsed.setState(Spell.STATE.COOLDOWN);
-                        spellUsed.setCurrentCooldown(spellUsed.getMaxCooldown() * 20);
-                        spellUsed.alterSpellExperience(1);
-                        spellData.setPreviousSpellUsed(spellUsed);
-                        if (spellUsed.getSpellMaxExperience() <= spellUsed.getSpellExperience())
-                        {
-                            spellUsed.alterSpellLevel(1);
-                            spellUsed.setSpellExperience(0);
-                            spellUsed.alterSpellMaxExperience(10);
-                        }
-                        PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
-                    }
+                    // start the spell if it has a continuous component
+                    if (UtilSpell.containsContinuousComponent(spellUsed))
+                        spellUsed.setState(Spell.STATE.CONTINUOUS);
+                    else
+                        UtilSpell.usedSpell(spellUsed);
+                    spellData.setPreviousSpellUsed(spellUsed);
+                    PacketHandler.sendToServer(new CSyncKeyPressedPacket(i));
+                    PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
+
+                    // else just do the spell
                 }
+                else if (usedSpellState.equals(Spell.STATE.CONTINUOUS))
+                {
+                    UtilSpell.usedSpell(spellUsed);
+                    PacketHandler.sendToServer(new CSyncKeyPressedPacket(i));
+                    PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
+                }
+                else if (usedSpellState.equals(Spell.STATE.COOLDOWN))
+                {
+                    // do nothing when it's on cooldown
+                }
+
                 IEntityStats entityStats = EntityStatsCapability.get(player);
                 if (!entityStats.getCombatData().getCombatMode()) {
                     player.inventory.selected = i;

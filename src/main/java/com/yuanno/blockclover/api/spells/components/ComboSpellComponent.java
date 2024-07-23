@@ -1,6 +1,7 @@
-package com.yuanno.blockclover.api.spells;
+package com.yuanno.blockclover.api.spells.components;
 
-import com.yuanno.blockclover.entity.SpellProjectileEntity;
+import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.SpellComponent;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.io.Serializable;

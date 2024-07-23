@@ -1,10 +1,11 @@
-package com.yuanno.blockclover.api.spells;
+package com.yuanno.blockclover.api.spells.components;
 
+import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.SpellComponent;
 import com.yuanno.blockclover.entity.SpellProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.io.Serializable;
-import java.util.function.Supplier;
 
 public class ProjectileSpellComponent extends SpellComponent {
 
@@ -14,7 +15,9 @@ public class ProjectileSpellComponent extends SpellComponent {
     private int effectHit;
     private SpellProjectileEntity.IOnEntityImpact onEntityImpact;
     private int areaOfEffect;
+    private int newProjectileLevel;
     public IProjectileSpell projectileSpell = (player -> {return null;});
+    private IProjectileSpell newProjectileSpell = (player -> {return null;});
 
     public ProjectileSpellComponent()
     {
@@ -41,6 +44,9 @@ public class ProjectileSpellComponent extends SpellComponent {
         this.addToUpgradeMap(this.effectHit, "hit effect");
         this.areaOfEffect = builder.areaOfEffect;
         this.addToUpgradeMap(this.areaOfEffect, "Area of effect");
+        this.newProjectileLevel = builder.newProjectileLevel;
+        this.newProjectileSpell = builder.newProjectile;
+        this.addToUpgradeMap(this.newProjectileLevel, "New Projectile");
     }
 
 
@@ -74,6 +80,8 @@ public class ProjectileSpellComponent extends SpellComponent {
         private int effectHit = 0;
         private SpellProjectileEntity.IOnEntityImpact onEntityImpact;
         private int areaOfEffect = 0;
+        private int newProjectileLevel = 0;
+        private IProjectileSpell newProjectile = (player -> {return null;});
 
 
         public ProjectileSpellComponentBuilder()
@@ -110,6 +118,13 @@ public class ProjectileSpellComponent extends SpellComponent {
         public ProjectileSpellComponentBuilder levelTripleShot(int level)
         {
             this.tripleShot = level;
+            return this;
+        }
+
+        public ProjectileSpellComponentBuilder newProjectile(int level, IProjectileSpell iProjectileSpell)
+        {
+            this.newProjectileLevel = level;
+            this.newProjectile = iProjectileSpell;
             return this;
         }
 
