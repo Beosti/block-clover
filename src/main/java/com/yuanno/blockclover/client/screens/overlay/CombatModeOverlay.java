@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.UtilSpell;
 import com.yuanno.blockclover.client.util.RenderHelper;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
@@ -44,17 +45,51 @@ public class CombatModeOverlay {
             matrixStack.pushPose();
             for (int i = 0; i < 9; i++)
             {
-                if (spellData.getEquippedSpells().get(i) != null && spellData.getEquippedSpells().get(i).getState().equals(Spell.STATE.COOLDOWN)) {
+                Spell equippedSpell = spellData.getEquippedSpells().get(i);
+                // check if it's null, if it is null just draw empty and continue
+                // check the state, if it's on cooldown draw the timer and red and continue
+                // if the state is ready -> check if it's combo, if not draw normal; if the state is continuous -> draw blue;
+
+                // if the spell is not there, just draws the widget
+                if (equippedSpell == null)
+                {
+                    RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                    continue;
+                }
+                switch (equippedSpell.getState())
+                {
+                    case COOLDOWN: // on cooldown you first draw the case then the spell and on top of that the timer
+                        RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 1, 0, 0);
+                        RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(equippedSpell), 141 + (i * 21), 238, 0, 16, 16, 16, 16, 0, 0, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                        drawTimer(matrixStack, equippedSpell.getCurrentCooldown(), 141 + (i * 21), 238);
+                        continue;
+                    case READY: // when it's ready it checks if it can combo or not, if not just render normally and do the spell on top
+                        if (UtilSpell.canCombo(player, equippedSpell))
+                            RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 0, 1, 0);
+                        else
+                            RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                        RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(equippedSpell), 141 + (i * 21), 238, 0, 16, 16, 16, 16, 0, 0, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                        continue;
+                    case CONTINUOUS:
+                        RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 0, 0, 1);
+                        RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(equippedSpell), 141 + (i * 21), 238, 0, 16, 16, 16, 16, 0, 0, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
+                        continue;
+                }
+
+                /*
+                if (equippedSpell != null && equippedSpell.getState().equals(Spell.STATE.COOLDOWN)) {
                     RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, 1, 0, 0);
                 }
                 else
                     RenderHelper.drawIcon(combatResource, 141 + (i * 21), 238, 0, 16, 16, 256, 256, 23, 0, 24, 23, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
-                if (spellData.getEquippedSpells().get(i) != null)
+                if (equippedSpell != null)
                 {
                     RenderHelper.drawIcon(BCHelper.getResourceLocationSpell(spellData.getEquippedSpells().get(i)), 141 + (i * 21), 238, 0, 16, 16, 16, 16, 0, 0, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() /255.0f,  iconColor.getBlue() /255.0f);
                 }
-                if (spellData.getEquippedSpells().get(i) != null && spellData.getEquippedSpells().get(i).getState().equals(Spell.STATE.COOLDOWN))
+                if (equippedSpell != null && equippedSpell.getState().equals(Spell.STATE.COOLDOWN))
                     drawTimer(matrixStack, spellData.getEquippedSpells().get(i).getCurrentCooldown(), 141 + (i * 21), 238);
+
+                 */
 
             }
             matrixStack.popPose();

@@ -1,8 +1,63 @@
 package com.yuanno.blockclover.api.spells;
 
+import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
 import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
+import com.yuanno.blockclover.data.spell.ISpellData;
+import com.yuanno.blockclover.data.spell.SpellDataCapability;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class UtilSpell {
+
+    /**
+     * Check if a spell has a specific component
+     * @param spell
+     * @param spellComponentClass
+     * @return
+     */
+    public static boolean hasComponent(Spell spell, Class<? extends SpellComponent> spellComponentClass)
+    {
+        for (SpellComponent component : spell.getSpellComponents()) {
+            if (spellComponentClass.isInstance(component)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the instance of a spell component class you want
+     * @param spell
+     * @param spellComponentClass
+     * @return
+     */
+    public static SpellComponent getComponent(Spell spell, Class<? extends SpellComponent> spellComponentClass) {
+        for (SpellComponent component : spell.getSpellComponents()) {
+            if (spellComponentClass.isInstance(component)) {
+                return component;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks if a spell can combo aka the effect will do the combo effects
+     */
+    public static boolean canCombo(PlayerEntity player, Spell spell)
+    {
+        for (int i = 0; i < spell.getSpellComponents().size(); i++)
+        {
+            SpellComponent currentSpellComponent = spell.getSpellComponents().get(i);
+            if (spell.getSpellComponents().get(i) instanceof ComboSpellComponent)
+            {
+                ComboSpellComponent comboSpellComponent = (ComboSpellComponent) currentSpellComponent;
+                if (SpellDataCapability.get(player).getPreviousSpellUsed() != null && SpellDataCapability.get(player).getPreviousSpellUsed().equals(comboSpellComponent.getSpellToCombo()))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      * Simple check if a spell contains a {@link ContinuousSpellComponent} or not

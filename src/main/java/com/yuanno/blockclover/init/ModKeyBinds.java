@@ -133,8 +133,6 @@ public class ModKeyBinds {
                     spellData.setPreviousSpellUsed(spellUsed);
                     PacketHandler.sendToServer(new CSyncKeyPressedPacket(i));
                     PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
-
-                    // else just do the spell
                 }
                 else if (usedSpellState.equals(Spell.STATE.CONTINUOUS))
                 {
