@@ -2,20 +2,25 @@ package com.yuanno.blockclover.events.spell;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.api.spells.SpellComponent;
 import com.yuanno.blockclover.api.spells.UtilSpell;
 import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
 import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
+import com.yuanno.blockclover.api.spells.components.PunchComponent;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -58,6 +63,35 @@ public class SpellEvents {
                     Attribute value = entry.getValue();
                     player.getAttribute(value).removeModifier(key);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPunchSpell(LivingDamageEvent event)
+    {
+        if (!(event.getSource().getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+        ISpellData spellData = SpellDataCapability.get(player);
+        for (int i = 0; i < spellData.getEquippedSpells().size(); i++)
+        {
+            Spell currentSpell = spellData.getEquippedSpells().get(i);
+            if (currentSpell == null)
+                continue;
+            if (!(UtilSpell.hasComponent(currentSpell, PunchComponent.class)))
+                continue;
+            if (!(currentSpell.getState().equals(Spell.STATE.CONTINUOUS)))
+                continue;
+            PunchComponent punchComponent = (PunchComponent) UtilSpell.getComponent(currentSpell, PunchComponent.class);
+            LivingEntity target = event.getEntityLiving();
+            punchComponent.getiPunch().punch(player, target);
+            if (punchComponent.endPunch())
+            {
+                UtilSpell.usedSpell(currentSpell);
+                SpellUseEvent spellUseEvent = new SpellUseEvent(player, spellData.getEquippedSpells().get(i));
+                MinecraftForge.EVENT_BUS.post(spellUseEvent);
+                PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
             }
         }
     }

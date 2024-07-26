@@ -2,6 +2,7 @@ package com.yuanno.blockclover.api.spells;
 
 import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
 import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
+import com.yuanno.blockclover.api.spells.components.PunchComponent;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import net.minecraft.entity.player.PlayerEntity;
@@ -60,7 +61,7 @@ public class UtilSpell {
 
 
     /**
-     * Simple check if a spell contains a {@link ContinuousSpellComponent} or not
+     * Simple check if a spell contains a {@link ContinuousSpellComponent} or a {@link PunchComponent} or not
      * @param spell
      * @return true if it does contain a continuous component, returns false if not
      */
@@ -69,7 +70,7 @@ public class UtilSpell {
         boolean flagContinuous = false;
         for (SpellComponent spellComponent : spell.getSpellComponents())
         {
-            if (spellComponent instanceof ContinuousSpellComponent)
+            if (spellComponent instanceof ContinuousSpellComponent || spellComponent instanceof PunchComponent)
             {
                 flagContinuous = true;
                 break;

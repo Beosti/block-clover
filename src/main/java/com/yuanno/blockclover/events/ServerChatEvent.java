@@ -7,6 +7,7 @@ import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import com.yuanno.blockclover.spells.ContinuosSpellTest;
 import com.yuanno.blockclover.spells.FireBallSpell;
+import com.yuanno.blockclover.spells.PunchSpellTest;
 import com.yuanno.blockclover.spells.TestBallSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,6 +26,7 @@ public class ServerChatEvent {
             spellData.addUnlockedSpell(FireBallSpell.INSTANCE);
             spellData.addUnlockedSpell(TestBallSpell.INSTANCE);
             spellData.addUnlockedSpell(ContinuosSpellTest.INSTANCE);
+            spellData.addUnlockedSpell(PunchSpellTest.INSTANCE);
             PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         }
     }
