@@ -11,11 +11,16 @@ import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class SpellEvents {
@@ -35,11 +40,24 @@ public class SpellEvents {
                 ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player, usedSpell);
             if (spellData.getPreviousSpellUsed() != null &&  usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo()))
                 ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
-            if (usedSpell.getSpellComponents().get(i) instanceof ContinuousSpellComponent && usedSpell.getState().equals(Spell.STATE.CONTINUOUS))
+            if (usedSpell.getSpellComponents().get(i) instanceof ContinuousSpellComponent && usedSpell.getState().equals(Spell.STATE.CONTINUOUS)) {
                 ((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).startContinuitySpell.startContinuity(player);
+                HashMap<AttributeModifier, Attribute> attributeHashMap = ((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).getAttributeHashMap();
+                for (Map.Entry<AttributeModifier, Attribute> entry : attributeHashMap.entrySet()) {
+                    AttributeModifier key = entry.getKey();
+                    Attribute value = entry.getValue();
+                    player.getAttribute(value).addTransientModifier(key);
+                }
+            }
             if (usedSpell.getSpellComponents().get(i) instanceof ContinuousSpellComponent && usedSpell.getState().equals(Spell.STATE.COOLDOWN)) {
                 ((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).endContinuitySpell.endContinuity(player);
                 ((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).setCurrentDuration(((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).getMaxDuration());
+                HashMap<AttributeModifier, Attribute> attributeHashMap = ((ContinuousSpellComponent) usedSpell.getSpellComponents().get(i)).getAttributeHashMap();
+                for (Map.Entry<AttributeModifier, Attribute> entry : attributeHashMap.entrySet()) {
+                    AttributeModifier key = entry.getKey();
+                    Attribute value = entry.getValue();
+                    player.getAttribute(value).removeModifier(key);
+                }
             }
         }
     }

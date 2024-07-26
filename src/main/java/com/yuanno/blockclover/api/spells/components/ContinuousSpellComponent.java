@@ -1,14 +1,19 @@
 package com.yuanno.blockclover.api.spells.components;
 
 import com.yuanno.blockclover.api.spells.SpellComponent;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import org.spongepowered.asm.mixin.injection.At;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class ContinuousSpellComponent extends SpellComponent {
 
     private int maxDuration = -1;
     private int currentDuration = -1;
+    HashMap<AttributeModifier, Attribute> attributeHashMap = new HashMap<>();
     public IStartContinuitySpell startContinuitySpell = (player -> {return;});
     public IDuringContinuitySpell duringContinuitySpell = (player -> {return;});
     public IEndContinuitySpell endContinuitySpell = (player -> {return;});
@@ -20,6 +25,7 @@ public class ContinuousSpellComponent extends SpellComponent {
         this.endContinuitySpell = builder.endContinuitySpell;
         this.maxDuration = builder.duration;
         this.currentDuration = builder.duration;
+        this.attributeHashMap = builder.attributeHashMap;
     }
 
     public static class ContinuousSpellComponentBuilder
@@ -28,6 +34,8 @@ public class ContinuousSpellComponent extends SpellComponent {
         private IDuringContinuitySpell duringContinuitySpell = (player -> {return;});
         private IEndContinuitySpell endContinuitySpell = (player -> {return;});
         private int duration = -1;
+        HashMap<AttributeModifier, Attribute> attributeHashMap = new HashMap<>();
+
 
         public ContinuousSpellComponentBuilder()
         {
@@ -55,6 +63,12 @@ public class ContinuousSpellComponent extends SpellComponent {
         public ContinuousSpellComponentBuilder setDuration(int duration)
         {
             this.duration = duration;
+            return this;
+        }
+
+        public ContinuousSpellComponentBuilder addAttribute(AttributeModifier attributeModifier, Attribute attribute)
+        {
+            this.attributeHashMap.put(attributeModifier, attribute);
             return this;
         }
 
@@ -97,5 +111,10 @@ public class ContinuousSpellComponent extends SpellComponent {
     public void setCurrentDuration(int currentDuration)
     {
         this.currentDuration = currentDuration;
+    }
+
+    public HashMap<AttributeModifier, Attribute> getAttributeHashMap()
+    {
+        return this.attributeHashMap;
     }
 }
