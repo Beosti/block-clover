@@ -12,6 +12,7 @@ public class ContinuosSpellTest extends Spell {
             .setStartContinuity((player) -> {System.out.println("stuff");})
             .setDuringContinuity((player -> {System.out.println("during");}))
             .setEndContinuity((player -> {System.out.println("ending");}))
+            .setDuration(12)
             .build();
 
     public ContinuosSpellTest()

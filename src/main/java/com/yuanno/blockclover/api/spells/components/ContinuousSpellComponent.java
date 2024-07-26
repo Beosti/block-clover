@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 public class ContinuousSpellComponent extends SpellComponent {
 
-    public int duration;
+    private int maxDuration = -1;
+    private int currentDuration = -1;
     public IStartContinuitySpell startContinuitySpell = (player -> {return;});
     public IDuringContinuitySpell duringContinuitySpell = (player -> {return;});
     public IEndContinuitySpell endContinuitySpell = (player -> {return;});
@@ -17,6 +18,8 @@ public class ContinuousSpellComponent extends SpellComponent {
         this.startContinuitySpell = builder.startContinuitySpell;
         this.duringContinuitySpell = builder.duringContinuitySpell;
         this.endContinuitySpell = builder.endContinuitySpell;
+        this.maxDuration = builder.duration;
+        this.currentDuration = builder.duration;
     }
 
     public static class ContinuousSpellComponentBuilder
@@ -24,6 +27,7 @@ public class ContinuousSpellComponent extends SpellComponent {
         private IStartContinuitySpell startContinuitySpell = (player -> {return;});
         private IDuringContinuitySpell duringContinuitySpell = (player -> {return;});
         private IEndContinuitySpell endContinuitySpell = (player -> {return;});
+        private int duration = -1;
 
         public ContinuousSpellComponentBuilder()
         {
@@ -48,6 +52,12 @@ public class ContinuousSpellComponent extends SpellComponent {
             return this;
         }
 
+        public ContinuousSpellComponentBuilder setDuration(int duration)
+        {
+            this.duration = duration;
+            return this;
+        }
+
         public ContinuousSpellComponent build()
         {
             return new ContinuousSpellComponent(this);
@@ -67,5 +77,25 @@ public class ContinuousSpellComponent extends SpellComponent {
     public interface IEndContinuitySpell extends Serializable
     {
         void endContinuity(PlayerEntity player);
+    }
+
+    public int getMaxDuration()
+    {
+        return this.maxDuration;
+    }
+
+    public int getCurrentDuration()
+    {
+        return this.currentDuration;
+    }
+
+    public void alterCurrentDuration(int amount)
+    {
+        this.currentDuration += amount;
+    }
+
+    public void setCurrentDuration(int currentDuration)
+    {
+        this.currentDuration = currentDuration;
     }
 }
