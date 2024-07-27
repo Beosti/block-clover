@@ -4,12 +4,11 @@ import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.api.spells.SpellComponent;
 import com.yuanno.blockclover.api.spells.UtilSpell;
-import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
-import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
-import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
-import com.yuanno.blockclover.api.spells.components.PunchComponent;
+import com.yuanno.blockclover.api.spells.components.*;
+import com.yuanno.blockclover.api.vanilla.VanillaUtil;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
+import com.yuanno.blockclover.data.spell.SpellDatabase;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
@@ -17,8 +16,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -64,8 +66,48 @@ public class SpellEvents {
                     player.getAttribute(value).removeModifier(key);
                 }
             }
+            if (usedSpell.getSpellComponents().get(i) instanceof ItemSpellComponent && usedSpell.getState().equals(Spell.STATE.CONTINUOUS))
+            {
+                ItemStack itemStack = new ItemStack(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem());
+                itemStack.getOrCreateTag().putBoolean("undroppable", true);
+                VanillaUtil.giveItemInMainHand(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem(), player, true);
+            }
+            if (usedSpell.getSpellComponents().get(i) instanceof ItemSpellComponent && usedSpell.getState().equals(Spell.STATE.COOLDOWN))
+            {
+                VanillaUtil.removeItemFromInventory(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem(), player);
+            }
         }
     }
+
+    @SubscribeEvent
+    public static void onItemDrop(ItemTossEvent event)
+    {
+        ItemStack itemStack = event.getEntityItem().getItem();
+        if (itemStack.getOrCreateTag().getBoolean("undroppable")) {
+            PlayerEntity player = event.getPlayer();
+            event.setCanceled(true);
+            ISpellData spellData = SpellDataCapability.get(event.getPlayer());
+            for (int i = 0; i < spellData.getEquippedSpells().size(); i++)
+            {
+                Spell currentSpell = spellData.getEquippedSpells().get(i);
+                if (currentSpell == null)
+                    continue;
+                if (!(currentSpell.getState().equals(Spell.STATE.CONTINUOUS)))
+                    continue;
+                if (!(UtilSpell.hasComponent(currentSpell, ItemSpellComponent.class)))
+                    continue;
+                ItemSpellComponent itemSpellComponent = (ItemSpellComponent) UtilSpell.getComponent(currentSpell, ItemSpellComponent.class);
+                if (!(event.getEntityItem().getItem().getItem().equals(itemSpellComponent.getItem())))
+                    continue;
+                UtilSpell.usedSpell(currentSpell);
+                UtilSpell.usedSpell(currentSpell);
+                SpellUseEvent spellUseEvent = new SpellUseEvent(player, spellData.getEquippedSpells().get(i));
+                MinecraftForge.EVENT_BUS.post(spellUseEvent);
+                PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public static void onPunchSpell(LivingDamageEvent event)
