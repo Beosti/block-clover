@@ -22,6 +22,7 @@ public class FireBallSpell extends Spell {
         this.setDescription("Fires a ball of fire towards where you're looking");
         this.setMaxCooldown(10);
         this.setSpellMaxExperience(3);
+        this.setManaCost(12);
         this.addSpellCompontent(comboSpellComponent);
         this.addSpellCompontent(spellComponent);
     }

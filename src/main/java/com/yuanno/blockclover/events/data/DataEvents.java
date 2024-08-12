@@ -1,10 +1,7 @@
 package com.yuanno.blockclover.events.data;
 
 import com.yuanno.blockclover.Main;
-import com.yuanno.blockclover.data.entity.CombatData;
-import com.yuanno.blockclover.data.entity.EntityStatsCapability;
-import com.yuanno.blockclover.data.entity.IEntityStats;
-import com.yuanno.blockclover.data.entity.MiscData;
+import com.yuanno.blockclover.data.entity.*;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.data.spell.SpellDatabase;
@@ -17,6 +14,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -38,6 +38,11 @@ public class DataEvents {
         {
             entityStats.setMiscData(new MiscData()); // called server side -> server side data is updated
             handleMiscData(entityStats.getMiscData());
+        }
+        if (entityStats.getMagicData() == null)
+        {
+            entityStats.setMagicData(new MagicData());
+            handleMagicData(entityStats.getMagicData());
         }
         if (entityStats.getCombatData() == null)
             entityStats.setCombatData(new CombatData());
@@ -61,5 +66,17 @@ public class DataEvents {
         else
             race = ModValues.HYBRID;
         miscData.setRace(race);
+    }
+
+    // handles the magic data
+    static void handleMagicData(MagicData magicData)
+    {
+        ArrayList random = ModValues.attributes;
+        Collections.shuffle(random);
+        magicData.setAttribute(random.get(0).toString());
+        magicData.setMaxMana(50);
+        magicData.setCurrentMana(50);
+        magicData.setLevel(1);
+        magicData.setManaRegen(1);
     }
 }

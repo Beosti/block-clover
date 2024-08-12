@@ -24,7 +24,8 @@ public class EntityStatsCapability {
                     props.put("misc", instance.getMiscData().save()); // save misc data if not empty
                 if (instance.getCombatData() != null)
                     props.put("combat", instance.getCombatData().save());
-
+                if (instance.getMagicData() != null)
+                    props.put("magic", instance.getMagicData().save());
                 return props;
             }
 
@@ -45,6 +46,13 @@ public class EntityStatsCapability {
                     CombatData combatData = new CombatData();
                     combatData.load(compoundNBT);
                     instance.setCombatData(combatData);
+                }
+                if (!props.getCompound("magic").isEmpty())
+                {
+                    CompoundNBT compoundNBT = props.getCompound("magic");
+                    MagicData magicData = new MagicData();
+                    magicData.load(compoundNBT);
+                    instance.setMagicData(magicData);
                 }
             }
         }, EntityStatsBase::new);

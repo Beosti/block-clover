@@ -4,6 +4,15 @@ import java.util.ArrayList;
 
 public class ModValues {
 
+    // ATTRIBUTES
+    public static final String FIRE = "Fire";
+
+    public static ArrayList<String> attributes = new ArrayList<String>();
+    static {
+        attributes.add(FIRE);
+    }
+
+    // RACES
     public static final String HUMAN = "Human";
     public static final String ELF = "Elf";
     public static final String DWARF = "Dwarf";

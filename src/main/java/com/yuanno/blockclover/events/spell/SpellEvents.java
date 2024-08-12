@@ -2,26 +2,25 @@ package com.yuanno.blockclover.events.spell;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.spells.Spell;
-import com.yuanno.blockclover.api.spells.SpellComponent;
 import com.yuanno.blockclover.api.spells.UtilSpell;
 import com.yuanno.blockclover.api.spells.components.*;
 import com.yuanno.blockclover.api.vanilla.VanillaUtil;
+import com.yuanno.blockclover.data.entity.EntityStatsBase;
+import com.yuanno.blockclover.data.entity.EntityStatsCapability;
+import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
-import com.yuanno.blockclover.data.spell.SpellDatabase;
 import com.yuanno.blockclover.networking.PacketHandler;
-import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
+import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,9 +37,14 @@ public class SpellEvents {
         if (!(event.getSpellUser() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getSpellUser();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         ISpellData spellData = SpellDataCapability.get(player);
         Spell usedSpell = event.getSpell();
 
+        if (usedSpell.getManaCost() > entityStats.getMagicData().getCurrentMana()) {
+            event.setCanceled(true);
+            return;
+        }
         for (int i = 0; i < usedSpell.getSpellComponents().size(); i++)
         {
             if (usedSpell.getSpellComponents().get(i) instanceof ProjectileSpellComponent)
@@ -77,6 +81,8 @@ public class SpellEvents {
                 VanillaUtil.removeItemFromInventory(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem(), player);
             }
         }
+        entityStats.getMagicData().alterCurrentmana(-usedSpell.getManaCost());
+        PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
     }
 
     @SubscribeEvent
@@ -143,6 +149,10 @@ public class SpellEvents {
     {
         if (!(event.player.tickCount % 20 == 0))
             return;
+        PlayerEntity player = event.player;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (entityStats.getMagicData().getMaxMana() > entityStats.getMagicData().getCurrentMana())
+            entityStats.getMagicData().alterCurrentmana(entityStats.getMagicData().getManaRegen());
         ISpellData spellData = SpellDataCapability.get(event.player);
         for (int i = 0; i < spellData.getEquippedSpells().size(); i++)
         {

@@ -18,6 +18,7 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     private int spellMaxExperience;
     private int spellExperience;
     private int spellLevel;
+    private int manaCost = 0;
 
     public Spell()
     {
@@ -98,6 +99,19 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     {
         return this.spellLevel;
     }
+
+    public void setManaCost(int amount)
+    {
+        this.manaCost = amount;
+    }
+    public void alterManaCost(int amount)
+    {
+        this.manaCost += amount;
+    }
+    public int getManaCost()
+    {
+        return this.manaCost;
+    }
     public int getCurrentCooldown()
     {
         return this.currentCooldown;
@@ -154,7 +168,7 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         compoundNBT.putInt("maxSpellExperience", this.getSpellMaxExperience());
         compoundNBT.putInt("spellExperience", this.getSpellExperience());
         compoundNBT.putInt("spellLevel", this.getSpellLevel());
-
+        compoundNBT.putInt("manaCost", this.getManaCost());
         return compoundNBT;
     }
 
@@ -169,5 +183,6 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         this.setSpellMaxExperience(compoundNBT.getInt("maxSpellExperience"));
         this.setSpellExperience(compoundNBT.getInt("spellExperience"));
         this.setSpellLevel(compoundNBT.getInt("spellLevel"));
+        this.setManaCost(compoundNBT.getInt("manaCost"));
     }
 }

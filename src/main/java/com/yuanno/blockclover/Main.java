@@ -1,6 +1,7 @@
 package com.yuanno.blockclover;
 
 import com.yuanno.blockclover.client.screens.overlay.CombatModeOverlay;
+import com.yuanno.blockclover.client.screens.overlay.ManaBarOverLay;
 import com.yuanno.blockclover.init.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -55,6 +56,7 @@ public class Main
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(new CombatModeOverlay());
+        MinecraftForge.EVENT_BUS.register(new ManaBarOverLay());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
