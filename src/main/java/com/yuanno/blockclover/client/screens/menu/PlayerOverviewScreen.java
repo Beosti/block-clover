@@ -52,6 +52,9 @@ public class PlayerOverviewScreen extends Screen {
         this.renderBackground(matrixStack);
         // join the world -> update data server side -> no update client side -> retrieve info data side -> crash
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + entityStats.getMiscData().getRace(), posX, posY, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Level: " + TextFormatting.RESET + entityStats.getMagicData().getLevel(), posX, posY + 20, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Experience: " + TextFormatting.RESET + entityStats.getMagicData().getExperience() + "/" + entityStats.getMagicData().getMaxExperience(), posX, posY + 35, -1);
+
         super.render(matrixStack, mouseX, mouseY, f);
     }
 

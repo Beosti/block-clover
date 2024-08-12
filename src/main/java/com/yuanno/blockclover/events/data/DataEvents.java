@@ -77,6 +77,8 @@ public class DataEvents {
         magicData.setMaxMana(50);
         magicData.setCurrentMana(50);
         magicData.setLevel(1);
+        magicData.setExperience(0);
+        magicData.setMaxExperience(50);
         magicData.setManaRegen(1);
     }
 }

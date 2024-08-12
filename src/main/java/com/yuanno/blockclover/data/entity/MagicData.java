@@ -4,6 +4,8 @@ import net.minecraft.nbt.CompoundNBT;
 
 public class MagicData {
     private String attribute = "";
+    private int experience = 0;
+    private int maxExperience = 50;
     private int level = 1;
     private int maxMana = 0;
     private float currentMana = 0;
@@ -16,6 +18,32 @@ public class MagicData {
     public String getAttribute()
     {
         return this.attribute;
+    }
+
+    public void setExperience(int amount)
+    {
+        this.experience = amount;
+    }
+    public void alterExperience(int amount)
+    {
+        this.experience += amount;
+    }
+    public int getExperience()
+    {
+        return this.experience;
+    }
+
+    public void setMaxExperience(int amount)
+    {
+        this.maxExperience = amount;
+    }
+    public void alterMaxExperience(int amount)
+    {
+        this.maxExperience += amount;
+    }
+    public int getMaxExperience()
+    {
+        return this.maxExperience;
     }
 
     public void setLevel(int amount)
@@ -74,6 +102,8 @@ public class MagicData {
     {
         CompoundNBT compoundNBT = new CompoundNBT();
         compoundNBT.putString("attribute", this.getAttribute());
+        compoundNBT.putInt("experience", this.getExperience());
+        compoundNBT.putInt("maxExperience", this.getMaxExperience());
         compoundNBT.putInt("level", this.getLevel());
         compoundNBT.putInt("maxMana", this.getMaxMana());
         compoundNBT.putFloat("currentMana", this.getCurrentMana());
@@ -85,6 +115,8 @@ public class MagicData {
     public void load(CompoundNBT compoundNBT)
     {
         this.attribute = compoundNBT.getString("attribute");
+        this.experience = compoundNBT.getInt("experience");
+        this.maxExperience = compoundNBT.getInt("maxExperience");
         this.level = compoundNBT.getInt("level");
         this.maxMana = compoundNBT.getInt("maxMana");
         this.currentMana = compoundNBT.getFloat("currentMana");

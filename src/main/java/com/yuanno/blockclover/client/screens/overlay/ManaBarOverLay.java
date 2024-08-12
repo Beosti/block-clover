@@ -13,6 +13,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import static net.minecraft.client.gui.AbstractGui.drawString;
+
 @OnlyIn(Dist.CLIENT)
 public class ManaBarOverLay {
     private final ResourceLocation emptyBarResource = new ResourceLocation(Main.MODID + ":textures/gui/manabar/empty_bar.png");

@@ -23,6 +23,7 @@ public class FireBallSpell extends Spell {
         this.setMaxCooldown(10);
         this.setSpellMaxExperience(3);
         this.setManaCost(12);
+        this.setExperienceGain(10);
         this.addSpellCompontent(comboSpellComponent);
         this.addSpellCompontent(spellComponent);
     }

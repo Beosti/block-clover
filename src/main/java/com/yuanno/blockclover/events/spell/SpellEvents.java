@@ -10,6 +10,7 @@ import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
+import com.yuanno.blockclover.events.level.LevelUpEvent;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
@@ -82,6 +83,16 @@ public class SpellEvents {
             }
         }
         entityStats.getMagicData().alterCurrentmana(-usedSpell.getManaCost());
+        entityStats.getMagicData().alterExperience(usedSpell.getExperienceGain());
+        if (entityStats.getMagicData().getExperience() > entityStats.getMagicData().getMaxExperience())
+        {
+            entityStats.getMagicData().alterLevel(1);
+            entityStats.getMagicData().alterMaxExperience(50);
+            entityStats.getMagicData().setExperience(0);
+            entityStats.getMagicData().alterMaxMana(50);
+            LevelUpEvent levelUpEvent = new LevelUpEvent(player);
+            MinecraftForge.EVENT_BUS.post(levelUpEvent);
+        }
         PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
     }
 
