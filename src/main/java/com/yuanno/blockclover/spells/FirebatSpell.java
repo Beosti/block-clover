@@ -14,8 +14,6 @@ public class FirebatSpell extends Spell {
             .setItem(ModItems.FIRE_BAT::get)
             .build();
 
-
-
     public FirebatSpell()
     {
         this.setName("Firebat");
@@ -25,6 +23,4 @@ public class FirebatSpell extends Spell {
         this.setExperienceGain(5);
         this.addSpellCompontent(firebatComponent);
     }
-
-
 }

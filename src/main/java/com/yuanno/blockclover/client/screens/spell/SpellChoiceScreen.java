@@ -42,6 +42,7 @@ public class SpellChoiceScreen extends Screen {
     private final IEntityStats entityStats;
     private final ISpellData spellData;
     private ArrayList<Spell> spells = new ArrayList<>();
+    TexturedIconButton texturedIconButton;
     protected SpellChoiceScreen(ArrayList<Spell> spells) {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
@@ -71,14 +72,13 @@ public class SpellChoiceScreen extends Screen {
             this.onClose();
         }, ((button, matrixStack, mouseX, mouseY) ->
         {
+            System.out.println("something");
             if (button.isHovered()) {
                 renderSpellTooltip(matrixStack, spells.get(2), mouseX, mouseY);
                 System.out.println("hovered");
             }
         }));
-
-
-
+        texturedIconButton = texturedIconButtonSpell3;
         this.addButton(texturedIconButtonSpell1);
         this.addButton(texturedIconButtonSpell2);
         this.addButton(texturedIconButtonSpell3);
@@ -94,9 +94,7 @@ public class SpellChoiceScreen extends Screen {
         String description = String.valueOf(spell.getDescription());
         int maxCooldown = spell.getMaxCooldown();
         StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" +
-                "Cooldown: " + maxCooldown +
-                "\n" + "Level: " +spell.getSpellLevel() +
-                "\n" + spell.getSpellExperience() + "/" + spell.getSpellMaxExperience());
+                "Cooldown: " + maxCooldown);
         for (int i = 0; i < spell.getSpellComponents().size(); i++)
         {
             SpellComponent spellComponent = spell.getSpellComponents().get(i);
@@ -128,6 +126,10 @@ public class SpellChoiceScreen extends Screen {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
 
+        if (texturedIconButton.isHovered())
+        {
+            renderSpellTooltip(matrixStack, this.spells.get(2), mouseX, mouseY);
+        }
         this.renderBackground(matrixStack);
         // join the world -> update data server side -> no update client side -> retrieve info data side -> crash
         //drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + entityStats.getMiscData().getRace(), posX, posY, -1);
