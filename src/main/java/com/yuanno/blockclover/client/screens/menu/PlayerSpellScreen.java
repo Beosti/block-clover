@@ -161,8 +161,8 @@ public class PlayerSpellScreen extends Screen {
 
     private void renderSpellTooltip(MatrixStack matrixStack, Spell spell, int mouseX, int mouseY)
     {
-        String name = spell.getName();
-        String description = spell.getDescription();
+        String name = String.valueOf(spell.getName());
+        String description = String.valueOf(spell.getDescription());
         int maxCooldown = spell.getMaxCooldown();
         StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" +
                 "Cooldown: " + maxCooldown +

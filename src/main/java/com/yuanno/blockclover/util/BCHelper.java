@@ -8,9 +8,9 @@ public class BCHelper {
 
     public static ResourceLocation getResourceLocationSpell(Spell spell)
     {
-        String originalResourceLocation = spell.getName();
+        String originalResourceLocation = spell.getIDName();
         String formatedResourceLocation = originalResourceLocation.replaceAll(" ", "_").toLowerCase();
-        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formatedResourceLocation + ".png");
+        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/spell/" + formatedResourceLocation + ".png");
         return resourceLocation;
     }
 }

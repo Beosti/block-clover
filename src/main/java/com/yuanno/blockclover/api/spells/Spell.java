@@ -1,6 +1,7 @@
 package com.yuanno.blockclover.api.spells;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
@@ -36,21 +37,26 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         return this.spellComponents;
     }
 
+    public String getIDName()
+    {
+        return this.name;
+    }
+
     public void setName(String name)
     {
         this.name = name;
     }
-    public String getName()
+    public TranslationTextComponent getName()
     {
-        return this.name;
+        return new TranslationTextComponent("blockclover.spells." + this.name + ".name");
     }
     public void setDescription(String description)
     {
         this.description = description;
     }
-    public String getDescription()
+    public TranslationTextComponent getDescription()
     {
-        return this.description;
+        return new TranslationTextComponent("blockclover.spells." + this.name + ".description");
     }
     public void setCurrentCooldown(int amount)
     {
@@ -159,8 +165,8 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         CompoundNBT compoundNBT = new CompoundNBT();
 
         compoundNBT.putString("id", this.getRegistryName().toString());
-        compoundNBT.putString("displayName", this.getName());
-        compoundNBT.putString("description", this.getDescription());
+        compoundNBT.putString("displayName", this.getIDName().toString());
+        compoundNBT.putString("description", this.getDescription().toString());
         compoundNBT.putInt("cooldown", this.getCurrentCooldown());
         compoundNBT.putInt("maxCooldown", this.getMaxCooldown());
         compoundNBT.putString("state", this.getState().toString());

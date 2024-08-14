@@ -153,7 +153,7 @@ public class RenderHelper {
             GuiUtils.drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY - 3 + 1, tooltipX - 3 + 1, tooltipY + tooltipHeight + 3 - 1, borderColorStart, borderColorEnd);
             GuiUtils.drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 2, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, borderColorEnd, borderColorEnd);
 
-            String abilityName = spell.getName();
+            String abilityName = spell.getIDName();
             int nameWidth = font.width(abilityName);
             Color iconColor = Beapi.hexToRGB("#333333");
             Set<ResourceLocation> coloredIcons = new HashSet<>();

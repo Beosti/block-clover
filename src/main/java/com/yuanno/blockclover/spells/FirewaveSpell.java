@@ -7,6 +7,7 @@ public class FirewaveSpell extends Spell {
     public static FirewaveSpell INSTANCE = new FirewaveSpell();
     private AreaofeffectSpellComponent spellComponent = new AreaofeffectSpellComponent.AreaofeffectComponentBuilder()
             .setSecondsOnFire(5)
+            .setRange(10)
             .build();
 
     public FirewaveSpell()

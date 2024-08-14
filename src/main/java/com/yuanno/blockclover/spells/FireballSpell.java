@@ -3,6 +3,7 @@ package com.yuanno.blockclover.spells;
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.entity.fire.FireballProjectile;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class FireballSpell extends Spell {
     public static FireballSpell INSTANCE = new FireballSpell();
@@ -14,7 +15,7 @@ public class FireballSpell extends Spell {
 
     public FireballSpell()
     {
-        this.setName("Fireball");
+        this.setName("fireball");
         this.setDescription("Fires a ball of fire towards where you're looking");
         this.setMaxCooldown(10);
         this.setSpellMaxExperience(50);

@@ -32,6 +32,16 @@ public class TexturedIconButton extends Button
 	private int iconPosX;
 	private int iconPosY;
 	private boolean isPressed;
+	public TexturedIconButton(ResourceLocation loc, int posX, int posY, int width, int height, ITextComponent text, IPressable onPress, ITooltip tooltip)
+	{
+		super(posX, posY, width, height, text, onPress, tooltip);
+
+		this.texture = loc;
+		this.texturePosX = posX;
+		this.texturePosY = posY;
+		this.textureWidth = width;
+		this.textureHeight = height;
+	}
 
 	public TexturedIconButton(ResourceLocation loc, int posX, int posY, int width, int height, ITextComponent text, IPressable onPress)
 	{

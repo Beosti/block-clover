@@ -30,8 +30,8 @@ public class ModSpells {
 
     public static <T extends Spell> Spell registerSpell(Spell spell)
     {
-        String resourceName = Beapi.getResourceName(spell.getName());
-        BeRegistry.getLangMap().put("spell." + Main.MODID + "." + resourceName, spell.getName());
+        String resourceName = Beapi.getResourceName(spell.getIDName());
+        BeRegistry.getLangMap().put("spell." + Main.MODID + "." + resourceName, spell.getIDName());
 
         final ResourceLocation key = new ResourceLocation(Main.MODID, resourceName);
         RegistryObject<Spell> ret = RegistryObject.of(key, ModRegistry.SPELLS);
