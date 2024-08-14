@@ -2,10 +2,14 @@ package com.yuanno.blockclover.api.spells.components;
 
 import com.yuanno.blockclover.api.spells.SpellComponent;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+
+import java.util.function.Supplier;
 
 public class ItemSpellComponent extends SpellComponent {
 
-    private Item item;
+    private Supplier<Item> item;
 
     public ItemSpellComponent(ItemSpellComponentBuilder itemSpellComponentBuilder)
     {
@@ -13,14 +17,14 @@ public class ItemSpellComponent extends SpellComponent {
     }
 
     public static class ItemSpellComponentBuilder {
-        private Item item;
+        private Supplier<Item> item;
 
         public ItemSpellComponentBuilder()
         {
 
         }
 
-        public ItemSpellComponentBuilder setItem(Item item)
+        public ItemSpellComponentBuilder setItem(Supplier<Item> item)
         {
             this.item = item;
             return this;
@@ -34,6 +38,6 @@ public class ItemSpellComponent extends SpellComponent {
 
     public Item getItem()
     {
-        return this.item;
+        return this.item.get();
     }
 }

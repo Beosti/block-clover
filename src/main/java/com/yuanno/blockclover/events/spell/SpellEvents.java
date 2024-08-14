@@ -82,7 +82,7 @@ public class SpellEvents {
             {
                 ItemStack itemStack = new ItemStack(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem());
                 itemStack.getOrCreateTag().putBoolean("undroppable", true);
-                VanillaUtil.giveItemInMainHand(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem(), player, true);
+                VanillaUtil.giveItemInMainHand(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem().getItem(), player, true);
             }
             if (usedSpell.getSpellComponents().get(i) instanceof ItemSpellComponent && usedSpell.getState().equals(Spell.STATE.COOLDOWN))
             {
