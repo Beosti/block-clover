@@ -7,5 +7,15 @@
   "keys.blockclover.info_card": "Info Card",
   "keys.blockclover.spell_screen": "Spell screen",
   "keys.blockclover.combat_mode": "Combat mode",
-  "category.blockclover.combat_mode": "Block clover combat"
+  "category.blockclover.combat_mode": "Block clover combat",
+
+  "blockclover.spells.fireball.name": "Fireball",
+  "blockclover.spells.fireball.description": "Shoots a fireball dealing damage",
+  "blockclover.spells.firebat.name": "Firebat",
+  "blockclover.spells.firebat.description": "Creates a bat made out of fire to fight with",
+  "blockclover.spells.firedup.name": "Fired up",
+  "blockclover.spells.firedup.description": "Fire yourself up with fire mana, increasing your combat skills",
+  "blockclover.spells.firewave.name": "Fire wave",
+  "blockclover.spells.firewave.description": "Shoot a wave of fire around you"
+
 }

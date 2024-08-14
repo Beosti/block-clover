@@ -160,6 +160,7 @@ public class RenderHelper {
             Set<ResourceLocation> staticIcons = new HashSet<>();
 
 
+            /*
             // RENDER THE XP BAR OF THE SPELL
             ResourceLocation emptyExperienceBar = new ResourceLocation(Main.MODID, "textures/gui/empty_experience_bar.png");
             RenderHelper.drawIcon(emptyExperienceBar, tooltipX + 40, tooltipY + 37, 500, 160, 38, 16, 16, 0, 0, 16, 16, 1, 1, 1);
@@ -167,6 +168,8 @@ public class RenderHelper {
             float width = 160 * ((float) spell.getSpellExperience() / spell.getSpellMaxExperience());
             RenderHelper.drawIcon(filledExperienceBar, tooltipX + 40, tooltipY + 37, 501, (int) width, 38, 16, 16, 0, 0, 16, 16, 1, 1, 1);
             // RENDER THE XP AND LEVEL STRING
+
+             */
 
             MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostBackground(stack, textLines, mStack, tooltipX, tooltipY, font, tooltipTextWidth, tooltipHeight));
             IRenderTypeBuffer.Impl renderType = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());

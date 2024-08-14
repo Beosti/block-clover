@@ -48,7 +48,7 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     }
     public TranslationTextComponent getName()
     {
-        return new TranslationTextComponent("blockclover.spells." + this.name + ".name");
+        return new TranslationTextComponent("blockclover.spells." + this.name.toLowerCase() + ".name");
     }
     public void setDescription(String description)
     {
@@ -56,7 +56,7 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     }
     public TranslationTextComponent getDescription()
     {
-        return new TranslationTextComponent("blockclover.spells." + this.name + ".description");
+        return new TranslationTextComponent("blockclover.spells." + this.name.toLowerCase() + ".description");
     }
     public void setCurrentCooldown(int amount)
     {

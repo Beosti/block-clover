@@ -14,6 +14,7 @@ import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
+import com.yuanno.blockclover.util.BCHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -42,7 +43,7 @@ public class SpellChoiceScreen extends Screen {
     private final IEntityStats entityStats;
     private final ISpellData spellData;
     private ArrayList<Spell> spells = new ArrayList<>();
-    TexturedIconButton texturedIconButton;
+    private ArrayList<TexturedIconButton> texturedIconButtons = new ArrayList<>();
     protected SpellChoiceScreen(ArrayList<Spell> spells) {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
@@ -58,59 +59,22 @@ public class SpellChoiceScreen extends Screen {
     @Override
     public void init()
     {
-        TexturedIconButton texturedIconButtonSpell1 = new TexturedIconButton(new ResourceLocation(Main.MODID, "textures/spell/" + spells.get(0).getIDName().toLowerCase().toString() + ".png"), 25, 50, 64, 64, new TranslationTextComponent(""), button -> {
-            spellData.addUnlockedSpell(spells.get(0));
-            this.onClose();
-        });
-        TexturedIconButton texturedIconButtonSpell2 = new TexturedIconButton(new ResourceLocation(Main.MODID, "textures/spell/" + spells.get(1).getIDName().toLowerCase().toString() + ".png"), 100, 50, 64, 64, new TranslationTextComponent(""), button -> {
-            spellData.addUnlockedSpell(spells.get(1));
-            this.onClose();
-        });
-        TexturedIconButton texturedIconButtonSpell3 = new TexturedIconButton(new ResourceLocation(Main.MODID, "textures/spell/" + spells.get(2).getIDName().toLowerCase().toString() + ".png"), 150, 50, 64, 64, new TranslationTextComponent(""), button ->
-        {
-            spellData.addUnlockedSpell(spells.get(2));
-            this.onClose();
-        }, ((button, matrixStack, mouseX, mouseY) ->
-        {
-            System.out.println("something");
-            if (button.isHovered()) {
-                renderSpellTooltip(matrixStack, spells.get(2), mouseX, mouseY);
-                System.out.println("hovered");
-            }
-        }));
-        texturedIconButton = texturedIconButtonSpell3;
-        this.addButton(texturedIconButtonSpell1);
-        this.addButton(texturedIconButtonSpell2);
-        this.addButton(texturedIconButtonSpell3);
-    }
-    int backgroundColorStart = Beapi.hexToRGB("#000000").getRGB();
-    int backgroundColorEnd = Beapi.hexToRGB("#36454F").getRGB();
-    int backgroundStart = Beapi.hexToRGB("#36454F").getRGB();
-    int backgroundEnd = Beapi.hexToRGB("#000000").getRGB();
-
-    private void renderSpellTooltip(MatrixStack matrixStack, Spell spell, int mouseX, int mouseY)
-    {
-        String name = String.valueOf(spell.getName());
-        String description = String.valueOf(spell.getDescription());
-        int maxCooldown = spell.getMaxCooldown();
-        StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" +
-                "Cooldown: " + maxCooldown);
-        for (int i = 0; i < spell.getSpellComponents().size(); i++)
-        {
-            SpellComponent spellComponent = spell.getSpellComponents().get(i);
-            HashMap<Integer, String> upgradeMap = spellComponent.getUpgradeMap();
-            for (Map.Entry<Integer, String> entry : upgradeMap.entrySet())
-            {
-                int keyLevel = entry.getKey();
-                String valueName = entry.getValue();
-                if (keyLevel != 0) {
-                    longString.append("\n" + "Unlock: " + valueName + " at level " + keyLevel);
-                    break;
-                }
-            }
+        int posX = 10;
+        for (int i = 0; i < 3; i++) {
+            int finalI = i;
+            TexturedIconButton button = new TexturedIconButton(
+                    new ResourceLocation(Main.MODID, "textures/spell/" + spells.get(i).getIDName().toLowerCase() + ".png"),
+                    posX, 80, 64, 64,
+                    new TranslationTextComponent(""),
+                    btn -> {
+                        spellData.addUnlockedSpell(spells.get(finalI));
+                        this.onClose();
+                    }
+            );
+            texturedIconButtons.add(button);
+            this.addButton(button);
+            posX += 175;
         }
-        RenderHelper.drawAbilityTooltip(spell, matrixStack, Arrays.asList(new StringTextComponent(longString.toString())), mouseX, mouseY, this.width, this.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, this.getMinecraft().font);
-
     }
 
     /**
@@ -126,15 +90,12 @@ public class SpellChoiceScreen extends Screen {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
 
-        if (texturedIconButton.isHovered())
+        for (int i = 0; i < texturedIconButtons.size(); i++)
         {
-            renderSpellTooltip(matrixStack, this.spells.get(2), mouseX, mouseY);
+            if (texturedIconButtons.get(i).isHovered())
+                BCHelper.renderSpellTooltip(matrixStack, this.spells.get(i), mouseX, mouseY, this, false);
         }
         this.renderBackground(matrixStack);
-        // join the world -> update data server side -> no update client side -> retrieve info data side -> crash
-        //drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + entityStats.getMiscData().getRace(), posX, posY, -1);
-        //drawString(matrixStack, this.font, TextFormatting.BOLD + "Level: " + TextFormatting.RESET + entityStats.getMagicData().getLevel(), posX, posY + 20, -1);
-        //drawString(matrixStack, this.font, TextFormatting.BOLD + "Experience: " + TextFormatting.RESET + entityStats.getMagicData().getExperience() + "/" + entityStats.getMagicData().getMaxExperience(), posX, posY + 35, -1);
 
         super.render(matrixStack, mouseX, mouseY, f);
     }

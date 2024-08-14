@@ -18,7 +18,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -40,10 +43,6 @@ public class PlayerSpellScreen extends Screen {
     List<Entry> spellEntries = new ArrayList<>();
     List<Entry> combatEntries = new ArrayList<>();
     Entry selectedEntry;
-    int backgroundColorStart = Beapi.hexToRGB("#000000").getRGB();
-    int backgroundColorEnd = Beapi.hexToRGB("#36454F").getRGB();
-    int backgroundStart = Beapi.hexToRGB("#36454F").getRGB();
-    int backgroundEnd = Beapi.hexToRGB("#000000").getRGB();
     private final ResourceLocation combatResource = new ResourceLocation(Main.MODID + ":textures/gui/combat_widget.png");
     Color iconColor = Beapi.hexToRGB("#FFFFFF");
 
@@ -116,7 +115,7 @@ public class PlayerSpellScreen extends Screen {
         }
         Entry spellEntry = getHoveredEntry(mouseX, mouseY);
         if (spellEntry != null && spellEntry.getCategory().equals(Entry.Category.SPELL))
-            renderSpellTooltip(matrixStack, spellEntry.getSpell(), mouseX, mouseY);
+            BCHelper.renderSpellTooltip(matrixStack, spellEntry.getSpell(), mouseX, mouseY, this);
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
@@ -157,33 +156,6 @@ public class PlayerSpellScreen extends Screen {
         this.selectedEntry = null;
 
         return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    private void renderSpellTooltip(MatrixStack matrixStack, Spell spell, int mouseX, int mouseY)
-    {
-        String name = String.valueOf(spell.getName());
-        String description = String.valueOf(spell.getDescription());
-        int maxCooldown = spell.getMaxCooldown();
-        StringBuilder longString = new StringBuilder("Name: " + name + "\n" + "Description: " + description + "\n" +
-                "Cooldown: " + maxCooldown +
-                "\n" + "Level: " +spell.getSpellLevel() +
-                "\n" + spell.getSpellExperience() + "/" + spell.getSpellMaxExperience());
-        for (int i = 0; i < spell.getSpellComponents().size(); i++)
-        {
-            SpellComponent spellComponent = spell.getSpellComponents().get(i);
-            HashMap<Integer, String> upgradeMap = spellComponent.getUpgradeMap();
-            for (Map.Entry<Integer, String> entry : upgradeMap.entrySet())
-            {
-                int keyLevel = entry.getKey();
-                String valueName = entry.getValue();
-                if (keyLevel != 0) {
-                    longString.append("\n" + "Unlock: " + valueName + " at level " + keyLevel);
-                    break;
-                }
-            }
-        }
-        RenderHelper.drawAbilityTooltip(spell, matrixStack, Arrays.asList(new StringTextComponent(longString.toString())), mouseX, mouseY, this.width, this.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, this.getMinecraft().font);
-
     }
     @Override
     public boolean isPauseScreen()
