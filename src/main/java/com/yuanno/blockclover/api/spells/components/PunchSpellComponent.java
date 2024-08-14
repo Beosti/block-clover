@@ -6,12 +6,12 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.io.Serializable;
 
-public class PunchComponent extends SpellComponent {
+public class PunchSpellComponent extends SpellComponent {
 
     private IPunch iPunch = ((player, target) -> {return;});
     private boolean onePunch;
 
-    public PunchComponent(PunchComponentBuilder builder)
+    public PunchSpellComponent(PunchComponentBuilder builder)
     {
         this.iPunch = builder.iPunch;
         this.onePunch = builder.onePunch;
@@ -38,9 +38,9 @@ public class PunchComponent extends SpellComponent {
             return this;
         }
 
-        public PunchComponent build()
+        public PunchSpellComponent build()
         {
-            return new PunchComponent(this);
+            return new PunchSpellComponent(this);
         }
     }
 

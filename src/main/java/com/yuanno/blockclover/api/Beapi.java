@@ -53,6 +53,7 @@ public class Beapi {
     private static HashMap<String, String> langMap = new HashMap<String, String>();
 
 
+
     public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, BlockState toPlace, int flag) {
         BlockPos pos = new BlockPos(posX, posY, posZ);
 

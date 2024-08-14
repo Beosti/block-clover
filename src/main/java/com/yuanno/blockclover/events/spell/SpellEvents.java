@@ -1,11 +1,11 @@
 package com.yuanno.blockclover.events.spell;
 
 import com.yuanno.blockclover.Main;
+import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.api.spells.UtilSpell;
 import com.yuanno.blockclover.api.spells.components.*;
 import com.yuanno.blockclover.api.vanilla.VanillaUtil;
-import com.yuanno.blockclover.data.entity.EntityStatsBase;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.spell.ISpellData;
@@ -26,7 +26,9 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.awt.geom.Area;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -50,6 +52,11 @@ public class SpellEvents {
         {
             if (usedSpell.getSpellComponents().get(i) instanceof ProjectileSpellComponent)
                 ((ProjectileSpellComponent) usedSpell.getSpellComponents().get(i)).shootProjectileSpellComponent(player, usedSpell);
+            if (usedSpell.getSpellComponents().get(i) instanceof AreaofeffectSpellComponent)
+            {
+                AreaofeffectSpellComponent areaofeffectSpellComponent = (AreaofeffectSpellComponent) usedSpell.getSpellComponents().get(i);
+                areaofeffectSpellComponent.areaofeffectComponent(player);
+            }
             if (spellData.getPreviousSpellUsed() != null &&  usedSpell.getSpellComponents().get(i) instanceof ComboSpellComponent && spellData.getPreviousSpellUsed().equals(((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).getSpellToCombo()))
                 ((ComboSpellComponent) usedSpell.getSpellComponents().get(i)).combo.comboDoing(player);
             if (usedSpell.getSpellComponents().get(i) instanceof ContinuousSpellComponent && usedSpell.getState().equals(Spell.STATE.CONTINUOUS)) {
@@ -84,7 +91,7 @@ public class SpellEvents {
         }
         entityStats.getMagicData().alterCurrentmana(-usedSpell.getManaCost());
         entityStats.getMagicData().alterExperience(usedSpell.getExperienceGain());
-        if (entityStats.getMagicData().getExperience() > entityStats.getMagicData().getMaxExperience())
+        if (entityStats.getMagicData().getExperience() >= entityStats.getMagicData().getMaxExperience())
         {
             entityStats.getMagicData().alterLevel(1);
             entityStats.getMagicData().alterMaxExperience(50);
@@ -138,14 +145,14 @@ public class SpellEvents {
             Spell currentSpell = spellData.getEquippedSpells().get(i);
             if (currentSpell == null)
                 continue;
-            if (!(UtilSpell.hasComponent(currentSpell, PunchComponent.class)))
+            if (!(UtilSpell.hasComponent(currentSpell, PunchSpellComponent.class)))
                 continue;
             if (!(currentSpell.getState().equals(Spell.STATE.CONTINUOUS)))
                 continue;
-            PunchComponent punchComponent = (PunchComponent) UtilSpell.getComponent(currentSpell, PunchComponent.class);
+            PunchSpellComponent punchSpellComponent = (PunchSpellComponent) UtilSpell.getComponent(currentSpell, PunchSpellComponent.class);
             LivingEntity target = event.getEntityLiving();
-            punchComponent.getiPunch().punch(player, target);
-            if (punchComponent.endPunch())
+            punchSpellComponent.getiPunch().punch(player, target);
+            if (punchSpellComponent.endPunch())
             {
                 UtilSpell.usedSpell(currentSpell);
                 SpellUseEvent spellUseEvent = new SpellUseEvent(player, spellData.getEquippedSpells().get(i));

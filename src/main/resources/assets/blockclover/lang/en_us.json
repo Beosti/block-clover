@@ -1,4 +1,8 @@
 {
+  "itemGroup.blockcloverModTabWeapons": "Block clover: Weapons",
+
+  "item.blockclover.firebat": "Firebat",
+
   "category.blockclover.gui": "Block Clover Gui",
   "keys.blockclover.info_card": "Info Card",
   "keys.blockclover.spell_screen": "Spell screen",

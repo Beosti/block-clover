@@ -20,11 +20,7 @@ public class ServerChatEvent {
         {
             PlayerEntity player = event.getPlayer();
             ISpellData spellData = SpellDataCapability.get(player);
-            spellData.addUnlockedSpell(FireBallSpell.INSTANCE);
-            spellData.addUnlockedSpell(TestBallSpell.INSTANCE);
-            spellData.addUnlockedSpell(ContinuosSpellTest.INSTANCE);
-            spellData.addUnlockedSpell(PunchSpellTest.INSTANCE);
-            spellData.addUnlockedSpell(ItemSpellTesst.INSTANCE);
+            spellData.addUnlockedSpell(FireballSpell.INSTANCE);
             PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         }
     }

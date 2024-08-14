@@ -3,7 +3,6 @@ package com.yuanno.blockclover.init;
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
-import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.spells.*;
 import com.yuanno.blockclover.util.BeRegistry;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +16,7 @@ import java.util.Objects;
 public class ModSpells {
 
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(ModRegistry.SPELLS, Main.MODID);
-    public static final Spell[] FIRE = new Spell[] {FireBallSpell.INSTANCE, TestBallSpell.INSTANCE, ContinuosSpellTest.INSTANCE, PunchSpellTest.INSTANCE, ItemSpellTesst.INSTANCE};
+    public static final Spell[] FIRE = new Spell[] {FireballSpell.INSTANCE, TestBallSpell.INSTANCE, FiredupSpell.INSTANCE, PunchSpellTest.INSTANCE, FirebatSpell.INSTANCE, FirewaveSpell.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {
