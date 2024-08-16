@@ -9,6 +9,7 @@ import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
+import com.yuanno.blockclover.spells.FireballSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,6 +45,8 @@ public class DataEvents {
             entityStats.setMagicData(new MagicData());
             handleMagicData(entityStats.getMagicData());
         }
+        if (entityStats.getMagicData().getAttribute().equals(ModValues.FIRE))
+            spellData.addUnlockedSpell(FireballSpell.INSTANCE);
         if (entityStats.getCombatData() == null)
             entityStats.setCombatData(new CombatData());
 

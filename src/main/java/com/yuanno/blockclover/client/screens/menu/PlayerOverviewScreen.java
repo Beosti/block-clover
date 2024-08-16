@@ -3,6 +3,7 @@ package com.yuanno.blockclover.client.screens.menu;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
+import com.yuanno.blockclover.data.entity.MiscData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -54,6 +55,7 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + entityStats.getMiscData().getRace(), posX, posY, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Level: " + TextFormatting.RESET + entityStats.getMagicData().getLevel(), posX, posY + 20, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Experience: " + TextFormatting.RESET + entityStats.getMagicData().getExperience() + "/" + entityStats.getMagicData().getMaxExperience(), posX, posY + 35, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Attribute: " + entityStats.getMagicData().getAttribute(), posX, posY + 50, -1);
 
         super.render(matrixStack, mouseX, mouseY, f);
     }
