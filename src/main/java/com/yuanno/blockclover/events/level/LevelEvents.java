@@ -26,7 +26,6 @@ public class LevelEvents {
     public static void onLevelUp(LevelUpEvent event)
     {
         PlayerEntity player = event.getPlayer();
-        ArrayList<Spell> spells = new ArrayList<>();
         IEntityStats entityStats = EntityStatsCapability.get(player);
 
         for(Map.Entry<String, HashMap<Integer, ArrayList<Spell>>> entry : spellGainHashMap.entrySet())
@@ -37,8 +36,7 @@ public class LevelEvents {
             {
                 if (entityStats.getMagicData().getLevel() != entryAttribute.getKey())
                     continue;
-                spells = entryAttribute.getValue();
-                PacketHandler.sendTo(new SOpenSpellChoiceScreenPacket(spells), player);
+                PacketHandler.sendTo(new SOpenSpellChoiceScreenPacket(entryAttribute.getValue()), player);
             }
         }
     }
@@ -49,7 +47,7 @@ public class LevelEvents {
         level5.add(FirebatSpell.INSTANCE);
         level5.add(FiredupSpell.INSTANCE);
         level5.add(FirewaveSpell.INSTANCE);
-        fireHashmap.put(2, level5);
+        fireHashmap.put(5, level5);
     }
 
     private static final HashMap<String, HashMap<Integer, ArrayList<Spell>>> spellGainHashMap= new HashMap<>();

@@ -67,6 +67,17 @@ public class BCHelper {
         RenderHelper.drawAbilityTooltip(spell, matrixStack, textLines, mouseX, mouseY, screen.width, screen.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, screen.getMinecraft().font);
     }
 
+    public static void renderAttributeTooltip(MatrixStack matrixStack, String nameAttribute, int mouseX, int mouseY, Screen screen)
+    {
+        TranslationTextComponent attributeName = new TranslationTextComponent("blockclover.attribute." + nameAttribute.toLowerCase() + ".name");
+        TranslationTextComponent attributeDescription = new TranslationTextComponent("blockclover.attribute." + nameAttribute.toLowerCase() + ".description");
+
+        List<ITextProperties> textLines = new ArrayList<>();
+        textLines.add(attributeName);
+        textLines.add(attributeDescription);
+        RenderHelper.drawTooltip(nameAttribute, matrixStack, textLines, mouseX, mouseY, screen.width, screen.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, screen.getMinecraft().font);
+    }
+
     public static void renderSpellTooltip(MatrixStack matrixStack, Spell spell, int mouseX, int mouseY, Screen screen, boolean renderLevel)
     {
         String name = String.valueOf(spell.getName());

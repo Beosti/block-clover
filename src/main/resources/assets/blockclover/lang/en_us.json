@@ -16,6 +16,17 @@
   "blockclover.spells.firedup.name": "Fired up",
   "blockclover.spells.firedup.description": "Fire yourself up with fire mana, increasing your combat skills",
   "blockclover.spells.firewave.name": "Fire wave",
-  "blockclover.spells.firewave.description": "Shoot a wave of fire around you"
+  "blockclover.spells.firewave.description": "Shoot a wave of fire around you",
+
+  "blockclover.attribute.fire.name": "Fire",
+  "blockclover.attribute.fire.description": "Elementary attribute mostly focused on offensive, it does have a few healing spells though",
+  "blockclover.attribute.water.name": "Water",
+  "blockclover.attribute.water.description": "Elementary attribute that is very well rounded, has healing, offense, defense, utility and miscellaneous spells",
+  "blockclover.attribute.earth.name": "Earth",
+  "blockclover.attribute.earth.description": "Elementary attribute mostly focused on defense and utility",
+  "blockclover.attribute.wind.name": "Wind",
+  "blockclover.attribute.wind.description": "Elementary attribute focused on ranged offensive and utility",
+  "blockclover.attribute.lightning.name": "Lightning",
+  "blockclover.attribute.lightning.description": "Elementary attribute focused on closing the distance between you and your enemy"
 
 }

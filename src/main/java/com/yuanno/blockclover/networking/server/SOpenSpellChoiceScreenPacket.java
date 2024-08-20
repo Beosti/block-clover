@@ -2,6 +2,9 @@ package com.yuanno.blockclover.networking.server;
 
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.client.screens.spell.SpellChoiceScreen;
+import com.yuanno.blockclover.data.entity.EntityStatsCapability;
+import com.yuanno.blockclover.networking.PacketHandler;
+import com.yuanno.blockclover.networking.client.COpenAttributeChoiceScreenPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -64,6 +67,7 @@ public class SOpenSpellChoiceScreenPacket {
         public static void handle(SOpenSpellChoiceScreenPacket message)
         {
             PlayerEntity player = Minecraft.getInstance().player;
+
             SpellChoiceScreen.open(message.spells);
         }
     }

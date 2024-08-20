@@ -12,6 +12,7 @@ import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
+import com.yuanno.blockclover.networking.client.COpenAttributeChoiceScreenPacket;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
 import com.yuanno.blockclover.networking.client.CSyncKeyPressedPacket;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
@@ -98,6 +99,11 @@ public class ModKeyBinds {
         {
             if (Minecraft.getInstance().screen != null)
                 return;
+            if (EntityStatsCapability.get(player).getMagicData().getAttribute().isEmpty()) {
+                System.out.println("pressed");
+                PacketHandler.sendToServer(new COpenAttributeChoiceScreenPacket());
+                return;
+            }
             PlayerSpellScreen.open();
         }
         if (combatMode.isDown())

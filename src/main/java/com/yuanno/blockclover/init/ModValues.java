@@ -6,10 +6,18 @@ public class ModValues {
 
     // ATTRIBUTES
     public static final String FIRE = "Fire";
+    public static final String WATER = "Water";
+    public static final String EARTH = "Earth";
+    public static final String WIND = "Wind";
+    public static final String LIGHTNING = "Lightning";
 
     public static ArrayList<String> attributes = new ArrayList<String>();
     static {
         attributes.add(FIRE);
+        attributes.add(WATER);
+        attributes.add(EARTH);
+        attributes.add(WIND);
+        attributes.add(LIGHTNING);
     }
 
     // RACES

@@ -4,6 +4,7 @@ import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.data.spell.ISpellData;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.networking.PacketHandler;
+import com.yuanno.blockclover.networking.server.SOpenAttributeChoiceScreenPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import com.yuanno.blockclover.spells.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +22,7 @@ public class ServerChatEvent {
             PlayerEntity player = event.getPlayer();
             ISpellData spellData = SpellDataCapability.get(player);
             spellData.addUnlockedSpell(FireballSpell.INSTANCE);
-            PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
+            PacketHandler.sendTo(new SOpenAttributeChoiceScreenPacket(), player);
         }
     }
 }

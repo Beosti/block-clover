@@ -7,6 +7,8 @@ import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import com.yuanno.blockclover.data.spell.SpellDatabase;
 import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
+import com.yuanno.blockclover.networking.server.SOpenAttributeChoiceScreenPacket;
+import com.yuanno.blockclover.networking.server.SOpenSpellChoiceScreenPacket;
 import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import com.yuanno.blockclover.spells.FireballSpell;
@@ -45,13 +47,14 @@ public class DataEvents {
             entityStats.setMagicData(new MagicData());
             handleMagicData(entityStats.getMagicData());
         }
-        if (entityStats.getMagicData().getAttribute().equals(ModValues.FIRE))
-            spellData.addUnlockedSpell(FireballSpell.INSTANCE);
+        //if (entityStats.getMagicData().getAttribute().equals(ModValues.FIRE))
+        //    spellData.addUnlockedSpell(FireballSpell.INSTANCE);
         if (entityStats.getCombatData() == null)
             entityStats.setCombatData(new CombatData());
 
         PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SOpenAttributeChoiceScreenPacket(), player);
     }
 
     // handles all the misc data when joining the world for a first time -> race, rank, title
@@ -74,9 +77,6 @@ public class DataEvents {
     // handles the magic data
     static void handleMagicData(MagicData magicData)
     {
-        ArrayList random = ModValues.attributes;
-        Collections.shuffle(random);
-        magicData.setAttribute(random.get(0).toString());
         magicData.setMaxMana(50);
         magicData.setCurrentMana(50);
         magicData.setLevel(1);

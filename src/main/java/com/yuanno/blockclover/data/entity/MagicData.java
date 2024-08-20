@@ -2,8 +2,11 @@ package com.yuanno.blockclover.data.entity;
 
 import net.minecraft.nbt.CompoundNBT;
 
+import java.util.ArrayList;
+
 public class MagicData {
     private String attribute = "";
+    private ArrayList<String> chosenAttributes = new ArrayList<>();
     private int experience = 0;
     private int maxExperience = 50;
     private int level = 1;
@@ -18,6 +21,16 @@ public class MagicData {
     public String getAttribute()
     {
         return this.attribute;
+    }
+
+    public void setChosenAttributes(ArrayList<String> attributes)
+    {
+        this.chosenAttributes = attributes;
+    }
+
+    public ArrayList<String> getChosenAttributes()
+    {
+        return this.chosenAttributes;
     }
 
     public void setExperience(int amount)
@@ -102,6 +115,10 @@ public class MagicData {
     {
         CompoundNBT compoundNBT = new CompoundNBT();
         compoundNBT.putString("attribute", this.getAttribute());
+        compoundNBT.putInt("chosen size", this.chosenAttributes.size());
+        for (int i = 0; i < this.chosenAttributes.size(); i++) {
+            compoundNBT.putString("chosen attribute " + i, this.chosenAttributes.get(i));
+        }
         compoundNBT.putInt("experience", this.getExperience());
         compoundNBT.putInt("maxExperience", this.getMaxExperience());
         compoundNBT.putInt("level", this.getLevel());
@@ -115,6 +132,11 @@ public class MagicData {
     public void load(CompoundNBT compoundNBT)
     {
         this.attribute = compoundNBT.getString("attribute");
+        ArrayList<String> attributesChosen = new ArrayList<>();
+        for (int i = 0; i < compoundNBT.getInt("chosen size"); i++) {
+            attributesChosen.add(compoundNBT.getString("chosen attribute " + i));
+        }
+        this.chosenAttributes = attributesChosen;
         this.experience = compoundNBT.getInt("experience");
         this.maxExperience = compoundNBT.getInt("maxExperience");
         this.level = compoundNBT.getInt("level");
