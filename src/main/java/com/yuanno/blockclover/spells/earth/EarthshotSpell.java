@@ -1,20 +1,21 @@
-package com.yuanno.blockclover.spells.water;
+package com.yuanno.blockclover.spells.earth;
 
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
+import com.yuanno.blockclover.entity.earth.EarthshotProjectile;
 import com.yuanno.blockclover.entity.water.WaterballProjectile;
 import com.yuanno.blockclover.util.SpellHelper;
 
-public class WaterballSpell extends Spell {
-    public static WaterballSpell INSTANCE = new WaterballSpell();
+public class EarthshotSpell extends Spell {
+    public static EarthshotSpell INSTANCE = new EarthshotSpell();
     private ProjectileSpellComponent spellComponent = new ProjectileSpellComponent.ProjectileSpellComponentBuilder()
-            .projectileSpell(WaterballProjectile::projectile)
+            .projectileSpell(EarthshotProjectile::projectile)
             .build();
 
-    public WaterballSpell()
+    public EarthshotSpell()
     {
-        this.setName("Waterball");
-        this.setDescription("Fires a ball of water towards where you're looking");
+        this.setName("Earthshot");
+        this.setDescription("Fires a ball of earth towards where you're looking");
         SpellHelper.onLevelOneStandardSpell(this);
         this.addSpellCompontent(spellComponent);
     }

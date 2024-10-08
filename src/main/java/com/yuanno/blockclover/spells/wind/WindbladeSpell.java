@@ -1,20 +1,21 @@
-package com.yuanno.blockclover.spells.water;
+package com.yuanno.blockclover.spells.wind;
 
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.entity.water.WaterballProjectile;
+import com.yuanno.blockclover.entity.wind.WindbladeProjectile;
 import com.yuanno.blockclover.util.SpellHelper;
 
-public class WaterballSpell extends Spell {
-    public static WaterballSpell INSTANCE = new WaterballSpell();
+public class WindbladeSpell extends Spell {
+    public static WindbladeSpell INSTANCE = new WindbladeSpell();
     private ProjectileSpellComponent spellComponent = new ProjectileSpellComponent.ProjectileSpellComponentBuilder()
-            .projectileSpell(WaterballProjectile::projectile)
+            .projectileSpell(WindbladeProjectile::projectile)
             .build();
 
-    public WaterballSpell()
+    public WindbladeSpell()
     {
-        this.setName("Waterball");
-        this.setDescription("Fires a ball of water towards where you're looking");
+        this.setName("Windblade");
+        this.setDescription("Fires a blade of wind towards where you're looking");
         SpellHelper.onLevelOneStandardSpell(this);
         this.addSpellCompontent(spellComponent);
     }

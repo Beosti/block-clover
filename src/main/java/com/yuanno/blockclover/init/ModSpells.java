@@ -3,10 +3,14 @@ package com.yuanno.blockclover.init;
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.api.spells.Spell;
+import com.yuanno.blockclover.spells.earth.EarthshotSpell;
 import com.yuanno.blockclover.spells.fire.FireballSpell;
 import com.yuanno.blockclover.spells.fire.FirebatSpell;
 import com.yuanno.blockclover.spells.fire.FiredupSpell;
 import com.yuanno.blockclover.spells.fire.FirewaveSpell;
+import com.yuanno.blockclover.spells.lightning.LightningchargeSpell;
+import com.yuanno.blockclover.spells.water.WaterballSpell;
+import com.yuanno.blockclover.spells.wind.WindbladeSpell;
 import com.yuanno.blockclover.util.BeRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,10 +24,17 @@ public class ModSpells {
 
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(ModRegistry.SPELLS, Main.MODID);
     public static final Spell[] FIRE = new Spell[] {FireballSpell.INSTANCE, FiredupSpell.INSTANCE, FirebatSpell.INSTANCE, FirewaveSpell.INSTANCE};
-
+    public static final Spell[] WATER = new Spell[] {WaterballSpell.INSTANCE};
+    public static final Spell[] LIGHTNING = new Spell[] {LightningchargeSpell.INSTANCE};
+    public static final Spell[] EARTH = new Spell[] {EarthshotSpell.INSTANCE};
+    public static final Spell[] WIND = new Spell[] {WindbladeSpell.INSTANCE};
     public static void register(IEventBus eventBus)
     {
         registerAbilities(FIRE);
+        registerAbilities(WATER);
+        registerAbilities(LIGHTNING);
+        registerAbilities(EARTH);
+        registerAbilities(WIND);
     }
 
     private static void registerAbilities(Spell[] abilities)

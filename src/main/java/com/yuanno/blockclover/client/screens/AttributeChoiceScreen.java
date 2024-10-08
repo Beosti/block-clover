@@ -12,7 +12,11 @@ import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
+import com.yuanno.blockclover.spells.earth.EarthshotSpell;
 import com.yuanno.blockclover.spells.fire.FireballSpell;
+import com.yuanno.blockclover.spells.lightning.LightningchargeSpell;
+import com.yuanno.blockclover.spells.water.WaterballSpell;
+import com.yuanno.blockclover.spells.wind.WindbladeSpell;
 import com.yuanno.blockclover.util.BCHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -126,6 +130,14 @@ public class AttributeChoiceScreen extends Screen {
         ISpellData spellData = SpellDataCapability.get(player);
         if (magicData.getAttribute().equals(ModValues.FIRE))
             spellData.addUnlockedSpell(FireballSpell.INSTANCE);
+        if (magicData.getAttribute().equals(ModValues.WATER))
+            spellData.addUnlockedSpell(WaterballSpell.INSTANCE);
+        if (magicData.getAttribute().equals(ModValues.LIGHTNING))
+            spellData.addUnlockedSpell(LightningchargeSpell.INSTANCE);
+        if (magicData.getAttribute().equals(ModValues.EARTH))
+            spellData.addUnlockedSpell(EarthshotSpell.INSTANCE);
+        if (magicData.getAttribute().equals(ModValues.WIND))
+            spellData.addUnlockedSpell(WindbladeSpell.INSTANCE);
         PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
     }
 }

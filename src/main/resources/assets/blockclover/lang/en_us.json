@@ -18,6 +18,18 @@
   "blockclover.spells.firewave.name": "Fire wave",
   "blockclover.spells.firewave.description": "Shoot a wave of fire around you",
 
+  "blockclover.spells.windblade.name": "Windblade",
+  "blockclover.spells.windblade.description": "",
+
+  "blockclover.spells.earthshot.name": "Earthshot",
+  "blockclover.spells.earthshot.description": "Fires a ball of earth towards where you're looking",
+
+  "blockclover.spells.lightningcharge.name": "Lightningcharge",
+  "blockclover.spells.lightningcharge.description": "Fires a ball of lightning towards where you're looking",
+
+  "blockclover.spells.waterball.name": "Waterball",
+  "blockclover.spells.waterball.description": "Fires a ball of water towards where you're looking",
+
   "blockclover.attribute.fire.name": "Fire",
   "blockclover.attribute.fire.description": "Elementary attribute mostly focused on offensive, it does have a few healing spells though",
   "blockclover.attribute.water.name": "Water",
