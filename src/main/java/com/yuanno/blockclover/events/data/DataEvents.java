@@ -46,6 +46,7 @@ public class DataEvents {
         {
             entityStats.setMagicData(new MagicData());
             handleMagicData(entityStats.getMagicData());
+
         }
         //if (entityStats.getMagicData().getAttribute().equals(ModValues.FIRE))
         //    spellData.addUnlockedSpell(FireballSpell.INSTANCE);
@@ -54,7 +55,8 @@ public class DataEvents {
 
         PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
-        PacketHandler.sendTo(new SOpenAttributeChoiceScreenPacket(), player);
+        if (entityStats.getMagicData().getAttribute().isEmpty())
+            PacketHandler.sendTo(new SOpenAttributeChoiceScreenPacket(), player);
     }
 
     // handles all the misc data when joining the world for a first time -> race, rank, title

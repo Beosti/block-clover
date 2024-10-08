@@ -22,7 +22,8 @@ public class ServerChatEvent {
             PlayerEntity player = event.getPlayer();
             ISpellData spellData = SpellDataCapability.get(player);
             spellData.addUnlockedSpell(FireballSpell.INSTANCE);
-            PacketHandler.sendTo(new SOpenAttributeChoiceScreenPacket(), player);
+            PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
+            System.out.println(spellData.getUnlockedSpells());
         }
     }
 }

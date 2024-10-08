@@ -74,7 +74,6 @@ public class AttributeChoiceScreen extends Screen {
                     posX, 80, 64, 64,
                     new TranslationTextComponent(""),
                     btn -> {
-                        //spellData.addUnlockedSpell(spells.get(finalI));
                         magicData.setAttribute(chosenAttributes.get(finalI));
                         this.onClose();
                     }

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class ModSpells {
 
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(ModRegistry.SPELLS, Main.MODID);
-    public static final Spell[] FIRE = new Spell[] {FireballSpell.INSTANCE, TestBallSpell.INSTANCE, FiredupSpell.INSTANCE, PunchSpellTest.INSTANCE, FirebatSpell.INSTANCE, FirewaveSpell.INSTANCE};
+    public static final Spell[] FIRE = new Spell[] {FireballSpell.INSTANCE, FiredupSpell.INSTANCE, FirebatSpell.INSTANCE, FirewaveSpell.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {

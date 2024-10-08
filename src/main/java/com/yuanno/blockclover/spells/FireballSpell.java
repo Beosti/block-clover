@@ -3,7 +3,6 @@ package com.yuanno.blockclover.spells;
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.entity.fire.FireballProjectile;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class FireballSpell extends Spell {
     public static FireballSpell INSTANCE = new FireballSpell();
