@@ -100,7 +100,6 @@ public class ModKeyBinds {
             if (Minecraft.getInstance().screen != null)
                 return;
             if (EntityStatsCapability.get(player).getMagicData().getAttribute().isEmpty()) {
-                System.out.println("pressed");
                 PacketHandler.sendToServer(new COpenAttributeChoiceScreenPacket());
                 return;
             }

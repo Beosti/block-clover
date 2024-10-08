@@ -93,7 +93,6 @@ public class PlayerSpellScreen extends Screen {
     {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
-
         this.renderBackground(matrixStack);
         for (Entry entry : this.combatEntries) {
             if (entry.getSpell() != null)

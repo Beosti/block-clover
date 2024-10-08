@@ -13,6 +13,7 @@ import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
+import com.yuanno.blockclover.spells.FireballSpell;
 import com.yuanno.blockclover.util.BCHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -123,5 +124,9 @@ public class AttributeChoiceScreen extends Screen {
         this.minecraft.popGuiLayer();
         this.magicData.setChosenAttributes(this.chosenAttributes);
         PacketHandler.sendToServer(new CSyncEntityStatsPacket(this.entityStats));
+        ISpellData spellData = SpellDataCapability.get(player);
+        if (magicData.getAttribute().equals(ModValues.FIRE))
+            spellData.addUnlockedSpell(FireballSpell.INSTANCE);
+        PacketHandler.sendToServer(new CSyncSpellDataPacket(spellData));
     }
 }
