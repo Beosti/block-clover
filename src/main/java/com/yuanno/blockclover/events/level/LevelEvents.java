@@ -7,16 +7,15 @@ import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SOpenSpellChoiceScreenPacket;
-import com.yuanno.blockclover.spells.FiredupSpell;
-import com.yuanno.blockclover.spells.FirewaveSpell;
-import com.yuanno.blockclover.spells.FirebatSpell;
+import com.yuanno.blockclover.spells.fire.FiredupSpell;
+import com.yuanno.blockclover.spells.fire.FirewaveSpell;
+import com.yuanno.blockclover.spells.fire.FirebatSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)

@@ -2,7 +2,6 @@ package com.yuanno.blockclover.client.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.blockclover.Main;
-import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.client.util.TexturedIconButton;
 import com.yuanno.blockclover.data.entity.EntityStatsCapability;
 import com.yuanno.blockclover.data.entity.IEntityStats;
@@ -13,7 +12,7 @@ import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.client.CSyncEntityStatsPacket;
 import com.yuanno.blockclover.networking.client.CSyncSpellDataPacket;
-import com.yuanno.blockclover.spells.FireballSpell;
+import com.yuanno.blockclover.spells.fire.FireballSpell;
 import com.yuanno.blockclover.util.BCHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;

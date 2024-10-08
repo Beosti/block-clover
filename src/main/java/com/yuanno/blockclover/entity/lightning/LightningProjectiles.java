@@ -1,4 +1,4 @@
-package com.yuanno.blockclover.entity.fire;
+package com.yuanno.blockclover.entity.lightning;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
@@ -14,19 +14,19 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class FireProjectiles {
+public class LightningProjectiles {
 
-    public static final RegistryObject<EntityType<FireballProjectile>> FIREBALL = Beapi.registerEntityType("Fireball",
-            () -> Beapi.createEntityType(FireballProjectile::new)
+    public static final RegistryObject<EntityType<LightningchargeProjectile>> LIGHTNINGCHARGE = Beapi.registerEntityType("Lightningcharge",
+            () -> Beapi.createEntityType(LightningchargeProjectile::new)
                     .sized(1f, 1f)
-                    .build(Main.MODID + ":fireball"));
+                    .build(Main.MODID + ":lightningcharge"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(FIREBALL.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+        RenderingRegistry.registerEntityRenderingHandler(LIGHTNINGCHARGE.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setScale(1, 1, 1)
-                .setColor("#FF0000"));
+                .setColor("#1e3e76"));
     }
 }

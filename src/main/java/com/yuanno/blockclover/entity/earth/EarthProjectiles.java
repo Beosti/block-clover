@@ -1,4 +1,4 @@
-package com.yuanno.blockclover.entity.fire;
+package com.yuanno.blockclover.entity.earth;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
@@ -14,19 +14,19 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class FireProjectiles {
+public class EarthProjectiles {
 
-    public static final RegistryObject<EntityType<FireballProjectile>> FIREBALL = Beapi.registerEntityType("Fireball",
-            () -> Beapi.createEntityType(FireballProjectile::new)
-                    .sized(1f, 1f)
-                    .build(Main.MODID + ":fireball"));
+    public static final RegistryObject<EntityType<EarthshotProjectile>> EARTHSHOT = Beapi.registerEntityType("Earthshot",
+            () -> Beapi.createEntityType(EarthshotProjectile::new)
+                    .sized(1f,1f)
+                    .build(Main.MODID + ":earthshot"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(FIREBALL.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+        RenderingRegistry.registerEntityRenderingHandler(EARTHSHOT.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setScale(1, 1, 1)
-                .setColor("#FF0000"));
+                .setColor("#9b7653"));
     }
 }

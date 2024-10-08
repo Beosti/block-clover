@@ -1,4 +1,4 @@
-package com.yuanno.blockclover.spells;
+package com.yuanno.blockclover.spells.fire;
 
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;

@@ -1,8 +1,9 @@
-package com.yuanno.blockclover.spells;
+package com.yuanno.blockclover.spells.fire;
 
 import com.yuanno.blockclover.api.spells.components.ProjectileSpellComponent;
 import com.yuanno.blockclover.api.spells.Spell;
 import com.yuanno.blockclover.entity.fire.FireballProjectile;
+import com.yuanno.blockclover.util.SpellHelper;
 
 public class FireballSpell extends Spell {
     public static FireballSpell INSTANCE = new FireballSpell();
@@ -16,10 +17,8 @@ public class FireballSpell extends Spell {
     {
         this.setName("fireball");
         this.setDescription("Fires a ball of fire towards where you're looking");
-        this.setMaxCooldown(10);
-        this.setSpellMaxExperience(50);
-        this.setManaCost(12);
-        this.setExperienceGain(10);
+        SpellHelper.onLevelOneStandardSpell(this);
+        //this.onStandardization = SpellHelper::onLevelOneStandardSpell;
         this.addSpellCompontent(spellComponent);
     }
 }

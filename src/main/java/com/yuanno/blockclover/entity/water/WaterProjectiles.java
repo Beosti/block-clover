@@ -1,8 +1,9 @@
-package com.yuanno.blockclover.entity.fire;
+package com.yuanno.blockclover.entity.water;
 
 import com.yuanno.blockclover.Main;
 import com.yuanno.blockclover.api.Beapi;
 import com.yuanno.blockclover.client.renderers.AbilityProjectileRenderer;
+import com.yuanno.blockclover.entity.lightning.LightningchargeProjectile;
 import com.yuanno.blockclover.models.CubeModel;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,19 +15,19 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class FireProjectiles {
+public class WaterProjectiles {
 
-    public static final RegistryObject<EntityType<FireballProjectile>> FIREBALL = Beapi.registerEntityType("Fireball",
-            () -> Beapi.createEntityType(FireballProjectile::new)
+    public static final RegistryObject<EntityType<WaterballProjectile>> WATERBALL = Beapi.registerEntityType("Waterball",
+            () -> Beapi.createEntityType(WaterballProjectile::new)
                     .sized(1f, 1f)
-                    .build(Main.MODID + ":fireball"));
+                    .build(Main.MODID + ":waterball"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(FIREBALL.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+        RenderingRegistry.registerEntityRenderingHandler(WATERBALL.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setScale(1, 1, 1)
-                .setColor("#FF0000"));
+                .setColor("#0f5e9c"));
     }
 }

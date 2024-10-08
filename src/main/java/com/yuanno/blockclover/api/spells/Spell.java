@@ -1,9 +1,11 @@
 package com.yuanno.blockclover.api.spells;
 
+import com.yuanno.blockclover.util.SpellHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -20,6 +22,9 @@ public class Spell extends ForgeRegistryEntry<Spell> {
     private int spellExperience;
     private int spellLevel;
     private int manaCost = 0;
+
+    // standardization of said spell
+    //public IStandardSpell onStandardization = (spell) -> {};
 
     public Spell()
     {
@@ -191,4 +196,11 @@ public class Spell extends ForgeRegistryEntry<Spell> {
         this.setSpellLevel(compoundNBT.getInt("spellLevel"));
         this.setManaCost(compoundNBT.getInt("manaCost"));
     }
+
+    /*
+    public interface IStandardSpell extends Serializable
+    {
+        void onStandardization(Spell spell);
+    }
+     */
 }
