@@ -44,12 +44,21 @@ public class SpellChoiceScreen extends Screen {
     private final ISpellData spellData;
     private ArrayList<Spell> spells = new ArrayList<>();
     private ArrayList<TexturedIconButton> texturedIconButtons = new ArrayList<>();
+    private int amount;
     protected SpellChoiceScreen(ArrayList<Spell> spells) {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
         this.entityStats = EntityStatsCapability.get(player);
         this.spellData = SpellDataCapability.get(player);
         this.spells = spells;
+    }
+    protected SpellChoiceScreen(ArrayList<Spell> spells, int amount) {
+        super(new StringTextComponent(""));
+        this.player = Minecraft.getInstance().player;
+        this.entityStats = EntityStatsCapability.get(player);
+        this.spellData = SpellDataCapability.get(player);
+        this.spells = spells;
+        this.amount = amount;
     }
 
     /**
@@ -68,7 +77,13 @@ public class SpellChoiceScreen extends Screen {
                     new TranslationTextComponent(""),
                     btn -> {
                         spellData.addUnlockedSpell(spells.get(finalI));
-                        this.onClose();
+                        if (this.amount != 0)
+                        {
+                            this.amount--;
+                            init();
+                        }
+                        else
+                            this.onClose();
                     }
             );
             texturedIconButtons.add(button);
@@ -107,6 +122,10 @@ public class SpellChoiceScreen extends Screen {
     }
 
     public static void open(ArrayList<Spell> spells)
+    {
+        Minecraft.getInstance().setScreen(new SpellChoiceScreen(spells));
+    }
+    public static void open(ArrayList<Spell> spells, int amount)
     {
         Minecraft.getInstance().setScreen(new SpellChoiceScreen(spells));
     }

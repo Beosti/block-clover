@@ -9,6 +9,6 @@ public class SpellHelper {
         spell.setMaxCooldown(10);
         spell.setSpellMaxExperience(50);
         spell.setManaCost(12);
-        spell.setExperienceGain(10);
+        spell.setExperienceGain(14);
     }
 }

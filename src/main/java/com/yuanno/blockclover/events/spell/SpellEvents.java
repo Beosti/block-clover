@@ -93,10 +93,6 @@ public class SpellEvents {
         entityStats.getMagicData().alterExperience(usedSpell.getExperienceGain());
         if (entityStats.getMagicData().getExperience() >= entityStats.getMagicData().getMaxExperience())
         {
-            entityStats.getMagicData().alterLevel(1);
-            entityStats.getMagicData().alterMaxExperience(50);
-            entityStats.getMagicData().setExperience(0);
-            entityStats.getMagicData().alterMaxMana(50);
             LevelUpEvent levelUpEvent = new LevelUpEvent(player);
             MinecraftForge.EVENT_BUS.post(levelUpEvent);
         }

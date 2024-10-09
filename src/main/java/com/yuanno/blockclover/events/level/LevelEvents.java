@@ -7,6 +7,7 @@ import com.yuanno.blockclover.data.entity.IEntityStats;
 import com.yuanno.blockclover.init.ModValues;
 import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SOpenSpellChoiceScreenPacket;
+import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.spells.fire.FiredupSpell;
 import com.yuanno.blockclover.spells.fire.FirewaveSpell;
 import com.yuanno.blockclover.spells.fire.FirebatSpell;
@@ -21,12 +22,24 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class LevelEvents {
 
+    /**
+     * When a player levels up, check if it can get a new spell if it does then give the choice screen
+     * @param event is the event of leveling up
+     */
     @SubscribeEvent
-    public static void onLevelUp(LevelUpEvent event)
+    public static void onLevelUpSpellGain(LevelUpEvent event)
     {
         PlayerEntity player = event.getPlayer();
         IEntityStats entityStats = EntityStatsCapability.get(player);
-
+        entityStats.getMagicData().alterLevel(1);
+        entityStats.getMagicData().alterMaxExperience(25);
+        entityStats.getMagicData().setExperience(0);
+        entityStats.getMagicData().alterMaxMana(50);
+        PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
+        // if you don't have a grimoire immediately return no spell gained
+        if (!entityStats.getMagicData().getHasGrimoire())
+            return;
+        int count = 0;
         for(Map.Entry<String, HashMap<Integer, ArrayList<Spell>>> entry : spellGainHashMap.entrySet())
         {
             if (!entry.getKey().equals(entityStats.getMagicData().getAttribute()))
@@ -35,6 +48,7 @@ public class LevelEvents {
             {
                 if (entityStats.getMagicData().getLevel() != entryAttribute.getKey())
                     continue;
+                count++;
                 PacketHandler.sendTo(new SOpenSpellChoiceScreenPacket(entryAttribute.getValue()), player);
             }
         }

@@ -21,11 +21,17 @@ import java.util.function.Supplier;
 public class SOpenSpellChoiceScreenPacket {
 
     private ArrayList<Spell> spells = new ArrayList<>();
+    private int amount;
     public SOpenSpellChoiceScreenPacket() {}
 
     public SOpenSpellChoiceScreenPacket(ArrayList<Spell> spells)
     {
         this.spells = spells;
+    }
+    public SOpenSpellChoiceScreenPacket(ArrayList<Spell> spells, int amount)
+    {
+        this.spells = spells;
+        this.amount = amount;
     }
 
     public void encode(PacketBuffer buffer)
@@ -35,6 +41,7 @@ public class SOpenSpellChoiceScreenPacket {
         {
             buffer.writeUtf(this.spells.get(i).getRegistryName().toString());
         }
+        buffer.writeInt(amount);
     }
 
     public static SOpenSpellChoiceScreenPacket decode(PacketBuffer buffer)
@@ -51,6 +58,7 @@ public class SOpenSpellChoiceScreenPacket {
             }
         }
         msg.spells = spells;
+        msg.amount = buffer.readInt();
         return msg;
     }
 
@@ -67,8 +75,10 @@ public class SOpenSpellChoiceScreenPacket {
         public static void handle(SOpenSpellChoiceScreenPacket message)
         {
             PlayerEntity player = Minecraft.getInstance().player;
-
-            SpellChoiceScreen.open(message.spells);
+            if (message.amount == 0)
+                SpellChoiceScreen.open(message.spells);
+            else
+                SpellChoiceScreen.open(message.spells, message.amount);
         }
     }
 }

@@ -13,6 +13,7 @@ public class MagicData {
     private int maxMana = 0;
     private float currentMana = 0;
     private float manaRegen = 0;
+    private boolean hasGrimoire = false;
 
     public void setAttribute(String attribute)
     {
@@ -111,6 +112,15 @@ public class MagicData {
         return this.manaRegen;
     }
 
+    public void setHasGrimoire(boolean flag)
+    {
+        this.hasGrimoire = flag;
+    }
+    public boolean getHasGrimoire()
+    {
+        return this.hasGrimoire;
+    }
+
     public CompoundNBT save()
     {
         CompoundNBT compoundNBT = new CompoundNBT();
@@ -125,6 +135,7 @@ public class MagicData {
         compoundNBT.putInt("maxMana", this.getMaxMana());
         compoundNBT.putFloat("currentMana", this.getCurrentMana());
         compoundNBT.putFloat("manaRegen", this.getManaRegen());
+        compoundNBT.putBoolean("hasGrimoire", this.getHasGrimoire());
 
         return compoundNBT;
     }
@@ -143,5 +154,6 @@ public class MagicData {
         this.maxMana = compoundNBT.getInt("maxMana");
         this.currentMana = compoundNBT.getFloat("currentMana");
         this.manaRegen = compoundNBT.getFloat("manaRegen");
+        this.hasGrimoire = compoundNBT.getBoolean("hasGrimoire");
     }
 }
