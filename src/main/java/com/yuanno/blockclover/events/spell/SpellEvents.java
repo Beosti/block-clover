@@ -88,6 +88,14 @@ public class SpellEvents {
             {
                 VanillaUtil.removeItemFromInventory(((ItemSpellComponent) usedSpell.getSpellComponents().get(i)).getItem(), player);
             }
+            if (usedSpell.getSpellComponents().get(i) instanceof SummoningSpellComponent && usedSpell.getState().equals(Spell.STATE.CONTINUOUS))
+            {
+                ((SummoningSpellComponent) usedSpell.getSpellComponents().get(i)).summonEntitySummoningSpellComponent(player, usedSpell);
+            }
+            if (usedSpell.getSpellComponents().get(i) instanceof SummoningSpellComponent && usedSpell.getState().equals(Spell.STATE.COOLDOWN))
+            {
+                ((SummoningSpellComponent) usedSpell.getSpellComponents().get(i)).removeSummonEntitySummoningSpellComponent(player, usedSpell);
+            }
         }
         entityStats.getMagicData().alterCurrentmana(-usedSpell.getManaCost());
         entityStats.getMagicData().alterExperience(usedSpell.getExperienceGain());
@@ -161,8 +169,6 @@ public class SpellEvents {
     @SubscribeEvent
     public static void onCurrentContinuousSpell(TickEvent.PlayerTickEvent event)
     {
-        if (!(event.player.tickCount % 20 == 0))
-            return;
         PlayerEntity player = event.player;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (entityStats.getMagicData().getMaxMana() > entityStats.getMagicData().getCurrentMana())
@@ -174,6 +180,12 @@ public class SpellEvents {
                 continue;
             if (!(spellData.getEquippedSpells().get(i).getState().equals(Spell.STATE.CONTINUOUS) || spellData.getEquippedSpells().get(i).getState().equals(Spell.STATE.PASSIVE)))
                 continue;
+            // TODO finish this up, when entity dies the spell should also die
+            if (UtilSpell.hasComponent(spellData.getEquippedSpells().get(i), SummoningSpellComponent.class))
+            {
+                SummoningSpellComponent summoningSpellComponent = (SummoningSpellComponent) UtilSpell.getComponent(spellData.getEquippedSpells().get(i), ContinuousSpellComponent.class);
+
+            }
             if (UtilSpell.hasComponent(spellData.getEquippedSpells().get(i), ContinuousSpellComponent.class))
             {
                 ContinuousSpellComponent continuousSpellComponent = (ContinuousSpellComponent) UtilSpell.getComponent(spellData.getEquippedSpells().get(i), ContinuousSpellComponent.class);

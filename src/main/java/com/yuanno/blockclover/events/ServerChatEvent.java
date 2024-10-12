@@ -9,6 +9,8 @@ import com.yuanno.blockclover.networking.PacketHandler;
 import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import com.yuanno.blockclover.spells.fire.FireballSpell;
+import com.yuanno.blockclover.spells.water.CurrentOfTheFortuneRiverSpell;
+import com.yuanno.blockclover.spells.water.WaterSubstituteSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +34,14 @@ public class ServerChatEvent {
             IEntityStats entityStats = EntityStatsCapability.get(player);
             entityStats.getMagicData().setHasGrimoire(true);
             PacketHandler.sendTo(new SSyncEntityStatsDataPacket(player.getId(), entityStats), player);
+        }
+        if (event.getMessage().equals("water"))
+        {
+            PlayerEntity player = event.getPlayer();
+            ISpellData spellData = SpellDataCapability.get(player);
+            spellData.addUnlockedSpell(WaterSubstituteSpell.INSTANCE);
+            PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
+
         }
     }
 }

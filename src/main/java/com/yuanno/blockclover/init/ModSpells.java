@@ -9,6 +9,8 @@ import com.yuanno.blockclover.spells.fire.FirebatSpell;
 import com.yuanno.blockclover.spells.fire.FiredupSpell;
 import com.yuanno.blockclover.spells.fire.FirewaveSpell;
 import com.yuanno.blockclover.spells.lightning.LightningchargeSpell;
+import com.yuanno.blockclover.spells.water.CurrentOfTheFortuneRiverSpell;
+import com.yuanno.blockclover.spells.water.WaterSubstituteSpell;
 import com.yuanno.blockclover.spells.water.WaterballSpell;
 import com.yuanno.blockclover.spells.wind.WindbladeSpell;
 import com.yuanno.blockclover.util.BeRegistry;
@@ -24,7 +26,7 @@ public class ModSpells {
 
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(ModRegistry.SPELLS, Main.MODID);
     public static final Spell[] FIRE = new Spell[] {FireballSpell.INSTANCE, FiredupSpell.INSTANCE, FirebatSpell.INSTANCE, FirewaveSpell.INSTANCE};
-    public static final Spell[] WATER = new Spell[] {WaterballSpell.INSTANCE};
+    public static final Spell[] WATER = new Spell[] {WaterballSpell.INSTANCE, CurrentOfTheFortuneRiverSpell.INSTANCE, WaterSubstituteSpell.INSTANCE};
     public static final Spell[] LIGHTNING = new Spell[] {LightningchargeSpell.INSTANCE};
     public static final Spell[] EARTH = new Spell[] {EarthshotSpell.INSTANCE};
     public static final Spell[] WIND = new Spell[] {WindbladeSpell.INSTANCE};

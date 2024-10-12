@@ -1,7 +1,6 @@
 package com.yuanno.blockclover.entity.water;
 
 import com.yuanno.blockclover.entity.SpellProjectileEntity;
-import com.yuanno.blockclover.entity.lightning.LightningProjectiles;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +15,7 @@ public class WaterballProjectile extends SpellProjectileEntity {
 
     public WaterballProjectile(World world, LivingEntity livingEntity)
     {
-        super(WaterProjectiles.WATERBALL.get(), world, livingEntity);
+        super(WaterAttributeEntities.WATERBALL.get(), world, livingEntity);
         this.setDamage(6);
         this.setMaxLife(64);
         this.setPhysical(false);

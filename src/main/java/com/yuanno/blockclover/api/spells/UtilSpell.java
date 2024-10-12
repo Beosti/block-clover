@@ -1,9 +1,6 @@
 package com.yuanno.blockclover.api.spells;
 
-import com.yuanno.blockclover.api.spells.components.ComboSpellComponent;
-import com.yuanno.blockclover.api.spells.components.ContinuousSpellComponent;
-import com.yuanno.blockclover.api.spells.components.ItemSpellComponent;
-import com.yuanno.blockclover.api.spells.components.PunchSpellComponent;
+import com.yuanno.blockclover.api.spells.components.*;
 import com.yuanno.blockclover.data.spell.SpellDataCapability;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -70,7 +67,8 @@ public class UtilSpell {
         boolean flagContinuous = false;
         for (SpellComponent spellComponent : spell.getSpellComponents())
         {
-            if (spellComponent instanceof ContinuousSpellComponent || spellComponent instanceof PunchSpellComponent || spellComponent instanceof ItemSpellComponent)
+            // TODO rework this properly
+            if (spellComponent instanceof ContinuousSpellComponent || spellComponent instanceof PunchSpellComponent || spellComponent instanceof ItemSpellComponent || spellComponent instanceof SummoningSpellComponent)
             {
                 flagContinuous = true;
                 break;
