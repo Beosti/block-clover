@@ -1,9 +1,6 @@
 package com.yuanno.blockclover.entity.water;
 
 import com.yuanno.blockclover.api.Beapi;
-import com.yuanno.blockclover.entity.SpellProjectileEntity;
-import com.yuanno.blockclover.entity.fire.FireProjectiles;
-import com.yuanno.blockclover.entity.fire.FireballProjectile;
 import com.yuanno.blockclover.entity.util.CloneEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +8,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;

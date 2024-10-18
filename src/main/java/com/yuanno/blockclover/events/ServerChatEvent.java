@@ -10,6 +10,7 @@ import com.yuanno.blockclover.networking.server.SSyncEntityStatsDataPacket;
 import com.yuanno.blockclover.networking.server.SSyncSpellDataPacket;
 import com.yuanno.blockclover.spells.fire.FireballSpell;
 import com.yuanno.blockclover.spells.water.CurrentOfTheFortuneRiverSpell;
+import com.yuanno.blockclover.spells.water.HolyFistofLoveSpell;
 import com.yuanno.blockclover.spells.water.WaterSubstituteSpell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,11 +22,11 @@ public class ServerChatEvent {
     @SubscribeEvent
     public static void onServerChat(net.minecraftforge.event.ServerChatEvent event)
     {
-        if (event.getMessage().equals("fireball"))
+        if (event.getMessage().equals("waterb"))
         {
             PlayerEntity player = event.getPlayer();
             ISpellData spellData = SpellDataCapability.get(player);
-            spellData.addUnlockedSpell(FireballSpell.INSTANCE);
+            spellData.addUnlockedSpell(HolyFistofLoveSpell.INSTANCE);
             PacketHandler.sendTo(new SSyncSpellDataPacket(player.getId(), spellData), player);
         }
         if (event.getMessage().equals("grimoire"))

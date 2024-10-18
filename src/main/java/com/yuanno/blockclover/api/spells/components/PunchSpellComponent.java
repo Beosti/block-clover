@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.io.Serializable;
 
+// TODO has a bug where it crashes sometimes when putting damage source with player
 public class PunchSpellComponent extends SpellComponent {
 
     private IPunch iPunch = ((player, target) -> {return;});
